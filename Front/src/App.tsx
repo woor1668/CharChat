@@ -1,0 +1,68 @@
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom"
+import styled from "styled-components";
+import Register from '@pages/Register';
+import Login from '@pages/Login'
+import OAuthCallback from "@pages/OAuthCallback";
+import Home from '@pages/Home';
+import MyPage from '@pages/MyPage';
+import Chat from "./pages/Chat";
+import { getAuth } from "@services/AuthService";
+import { PopupProvider } from "@components/Popup";
+import { ReactNode, useEffect, useState } from "react";
+import LoadingScreen from "@components/loading-screen";
+
+const ProtectedRoute = ({ children }: { children: ReactNode }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const authStatus = await getAuth();
+      setIsAuthenticated(authStatus);
+    };
+    checkAuth();
+  }, []);
+
+  if (isAuthenticated === null) {
+    return <LoadingScreen />;
+  }
+
+  return isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
+};
+
+const router = createBrowserRouter([
+  { path: "/login", element: <Login /> },
+  { path: "/register", element: <Register /> },
+  { path: "/oauth/:provider", element: <OAuthCallback /> },
+  {
+    path: "/",
+    element: (
+      <ProtectedRoute>
+        <Home />
+      </ProtectedRoute>
+    ),
+    children: [
+      // { path:"/notice/:id", element:<Notice />},
+      { path: "", element: <Chat /> },
+      { path: "my", element: <MyPage /> },
+    ],
+  },
+]);
+
+const App = () => {
+  return (
+    <StyledWrapper>
+      <PopupProvider>
+        <RouterProvider router={router} />
+      </PopupProvider>
+    </StyledWrapper>
+  );
+};
+
+const StyledWrapper = styled.div`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export default App;
