@@ -8,7 +8,7 @@ export interface info {
 
 export const selectInfo = async (uuid: string): Promise<info | null> => {
     const conn = await pool.getConnection();
-    const rows = await conn.query("SELECT name, id, email, lang FROM TB_USERS WHERE UUID = ?", [uuid]);
+    const rows = await conn.query("SELECT name, email FROM TB_USERS WHERE UUID = ?", [uuid]);
     conn.release();
     return rows.length ? rows[0] : null;
   };

@@ -95,7 +95,7 @@ export const StripedContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 1.2rem 0;
+  margin: 1rem 0 calc(1rem + 8px) 0;
   position: relative;
   width: 100%;
   

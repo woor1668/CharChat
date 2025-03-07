@@ -67,11 +67,11 @@ export default function SocialLoginButtons() {
         <EmptyCell />
         </SocialButton>
         {/* 애플 버튼 */}
-        <SocialButton bgColor="#000" color="#fff" href={URL+"/oauth/apple"}>
+        {/* <SocialButton bgColor="#000" color="#fff" href={URL+"/oauth/apple"}>
         <IconImage src="social_apple_icon.svg" alt="apple" />
         <ButtonText>Apple 계정으로 로그인</ButtonText>
         <EmptyCell />
-        </SocialButton>
+        </SocialButton> */}
     </ButtonGroup>
     );
 }
