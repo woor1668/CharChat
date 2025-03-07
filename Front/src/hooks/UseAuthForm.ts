@@ -8,7 +8,6 @@ import { usePasswordValidation } from "./UsePasswordValidation";
 export function useRegisterForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [id, setId] = useState("");
   const [loading, setLoading] = useState(false);
   const { showAlert } = usePopup();
   const navigate = useNavigate();
@@ -31,7 +30,7 @@ export function useRegisterForm() {
       if (!loading) {
           try {
               setLoading(true);
-              await registerUser(name, email, id, password);
+              await registerUser(name, email, password);
               await showAlert({ message: "회원가입 성공하였습니다.", header: "성공" });
               navigate("/login");
           } catch (err) {
@@ -45,7 +44,6 @@ export function useRegisterForm() {
   return {
       name, setName,
       email, setEmail,
-      id, setId,
       password, setPassword,
       showPassword, setShowPassword,
       rePassword, setRePassword,
@@ -56,7 +54,7 @@ export function useRegisterForm() {
 
 //로그인
 export function useLoginForm() {
-  const [eid, setEid] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -69,7 +67,7 @@ export function useLoginForm() {
       if (!loading) {
           try {
               setLoading(true);
-              await loginUser(eid, password);
+              await loginUser(email, password);
               navigate("/");
           } catch (err) {
               console.error(err);
@@ -80,7 +78,7 @@ export function useLoginForm() {
   };
 
   return {
-      eid, setEid,
+    email, setEmail,
       password, setPassword,
       showPassword, setShowPassword,
       handleSubmit,

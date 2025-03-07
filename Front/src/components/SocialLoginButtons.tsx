@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { handleNaverLogin, handleKakaoLogin, handleGoogleLogin, handleAppleLogin } from "@src/services/socialLoginAPI";
 
 // 공통 소셜 로그인 버튼 스타일
-const SocialButton = styled.button<{ bgColor: string; color: string }>`
+const SocialButton = styled.a<{ bgColor: string; color: string }>`
   width: 100%;
   height: 50px;
   margin: 8px 0;
@@ -12,8 +11,8 @@ const SocialButton = styled.button<{ bgColor: string; color: string }>`
   border: 1px solid #ddd;
   background-color: ${(props) => props.bgColor};
   color: ${(props) => props.color};
-  cursor: pointer;
   display: grid;
+  text-decoration: none;
   grid-template-columns: 40px auto 40px;
   align-items: center;
   gap: 5px;
@@ -45,32 +44,34 @@ const ButtonGroup = styled.div`
 `;
 
 export default function SocialLoginButtons() {
-  return (
+    const URL = import.meta.env.VITE_BACKEND_URL;
+
+    return (
     <ButtonGroup>
-      {/* 네이버 버튼 */}
-      <SocialButton bgColor="#03CF5D" color="#fff" onClick={handleNaverLogin}>
+        {/* 네이버 버튼 */}
+        <SocialButton bgColor="#03CF5D" color="#fff" href={URL+"/oauth/naver"}>
         <IconImage src="social_naver_icon.svg" alt="naver" />
         <ButtonText>네이버 계정으로 로그인</ButtonText>
         <EmptyCell />
-      </SocialButton>
-      {/* 카카오 버튼 */}
-      <SocialButton bgColor="#FEE500" color="#000" onClick={handleKakaoLogin}>
+        </SocialButton>
+        {/* 카카오 버튼 */}
+        <SocialButton bgColor="#FEE500" color="#000" href={URL+"/oauth/kakao"}>
         <IconImage src="social_kakao_icon.svg" alt="kakao" />
         <ButtonText>카카오 계정으로 로그인</ButtonText>
         <EmptyCell />
-      </SocialButton>
-      {/* 구글 버튼 */}
-      <SocialButton bgColor="#fff" color="#000" onClick={handleGoogleLogin} style={{ border: "1px solid #000" }}>
+        </SocialButton>
+        {/* 구글 버튼 */}
+        <SocialButton bgColor="#fff" color="#000" href={URL+"/oauth/google"} style={{ border: "1px solid #000" }}>
         <IconImage src="social_google_icon.svg" alt="google" />
         <ButtonText>Google 계정으로 로그인</ButtonText>
         <EmptyCell />
-      </SocialButton>
-      {/* 애플 버튼 */}
-      <SocialButton bgColor="#000" color="#fff" onClick={handleAppleLogin}>
-        <IconImage src="social_apple_icon.svg" alt="Apple" />
+        </SocialButton>
+        {/* 애플 버튼 */}
+        <SocialButton bgColor="#000" color="#fff" href={URL+"/oauth/apple"}>
+        <IconImage src="social_apple_icon.svg" alt="apple" />
         <ButtonText>Apple 계정으로 로그인</ButtonText>
         <EmptyCell />
-      </SocialButton>
+        </SocialButton>
     </ButtonGroup>
-  );
+    );
 }

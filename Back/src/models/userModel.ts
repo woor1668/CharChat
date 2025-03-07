@@ -2,7 +2,6 @@ import pool from "@config/db";
 
 export interface User {
   uuid: string;
-  lang: string;
 }
 
 export const findUserByEmail = async (email: string): Promise<User | null> => {
@@ -12,15 +11,21 @@ export const findUserByEmail = async (email: string): Promise<User | null> => {
   return rows.length ? rows[0] : null;
 };
 
-export const createUser = async (name: string, id: string, email: string, pw: string): Promise<void> => {
+export const createUser = async (name: string, email: string, pw: string, agent: string ): Promise<void> => {
   const conn = await pool.getConnection();
-  await conn.query("INSERT INTO TB_USERS (NAME, ID, EMAIL, PASSWORD) values (?, ?, ?, SHA2(?, 256))", [name, id, email, pw]);
+  const query = pw ? 
+    "INSERT INTO TB_USERS (NAME, EMAIL, PASSWORD, AUTH_AGENT) values (?, ?, SHA2(?, 256), ?)" :
+    "INSERT INTO TB_USERS (NAME, EMAIL, PASSWORD, AUTH_AGENT) values (?, ?, NULL, ?)";
+
+  const params = pw ? [name, email, pw, agent] : [name, email, agent];
+
+  await conn.query(query, params);
   conn.release();
 };
 
-export const loginUser = async (eid: string, pw: string): Promise<User | null> => {
+export const loginUser = async (email: string, pw: string): Promise<User | null> => {
   const conn = await pool.getConnection();
-  const rows = await conn.query("SELECT * FROM TB_USERS WHERE 1=1 AND (ID = ? OR EMAIL = ?) AND PASSWORD = SHA2(?, 256)", [eid, eid, pw]);
+  const rows = await conn.query("SELECT * FROM TB_USERS WHERE 1=1 AND EMAIL = ? AND PASSWORD = SHA2(?, 256)", [email, pw]);
   conn.release();
   return rows.length ? rows[0] : null;
 };

@@ -1,17 +1,16 @@
 import { api } from "./Api";
 interface AuthResponse {
   token: string;
-  lang: string;
 }
 
 // 회원가입 API
-export const registerUser = async (name: string, email: string, id: string, pw: string) => {
+export const registerUser = async (name: string, email: string, pw: string) => {
   try {
     const response = await api.post<AuthResponse>("/auth/register", {
       name,
       email,
-      id,
       pw,
+      agent : 'local'
     });
     return response.data;
   } catch (error) {
@@ -21,15 +20,14 @@ export const registerUser = async (name: string, email: string, id: string, pw: 
 };
 
 // 로그인 API
-export const loginUser = async (eid: string, pw: string) => {
+export const loginUser = async (email: string, pw: string) => {
   try {
     const response = await api.post<AuthResponse>("/auth/login", {
-      eid,
+      email,
       pw,
     });
     if (response.data) {
       localStorage.setItem("token", response.data.token);
-      localStorage.setItem("lang", response.data.lang);
     }
     return response.data;
   } catch (error) {

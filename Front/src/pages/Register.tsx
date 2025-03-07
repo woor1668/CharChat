@@ -1,10 +1,10 @@
 import { InputWrapper, Input, Button, Wrapper, Form, IconWrapper, Container, StyledLink } from "@styles/AuthStyles";
-import { FaUser, FaEnvelope, FaIdCard } from "react-icons/fa";
+import { FaUser, FaEnvelope } from "react-icons/fa";
 import { useRegisterForm } from "@src/hooks/UseAuthForm";
 import PasswordInput, { PasswordForm } from "@src/components/Password";
 
 export default function Register() {
-  const { name, setName, email, setEmail, id, setId, 
+  const { name, setName, email, setEmail,
           password, setPassword, showPassword, setShowPassword,
           rePassword, setRePassword, showRePassword, setShowRePassword,
           isValPw, isCfPw, handleSubmit 
@@ -23,11 +23,6 @@ export default function Register() {
           <InputWrapper>
             <IconWrapper><FaEnvelope /></IconWrapper>
             <Input type="email" placeholder="이메일" value={email} onChange={(e) => setEmail(e.target.value)} required />
-          </InputWrapper>
-          
-          <InputWrapper>
-            <IconWrapper><FaIdCard /></IconWrapper>
-            <Input type="text" placeholder="아이디" value={id} onChange={(e) => setId(e.target.value)} required />
           </InputWrapper>
           
           <PasswordInput 

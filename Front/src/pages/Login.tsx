@@ -1,11 +1,11 @@
-import { FaIdCard } from "react-icons/fa";
+import { FaEnvelope } from "react-icons/fa";
 import { Input, Button, Wrapper, Form, InputWrapper, IconWrapper, Container, StyledLink, StripedContainer, StripedText } from "@styles/AuthStyles";
 import { useLoginForm } from "@hooks/UseAuthForm";
 import PasswordInput from "@components/Password";
 import SocialLoginButtons from "@components/SocialLoginButtons";
 
 export default function Login() {
-  const { eid, setEid, password, setPassword, handleSubmit, showPassword, setShowPassword } = useLoginForm();
+  const { email, setEmail, password, setPassword, handleSubmit, showPassword, setShowPassword } = useLoginForm();
 
   return (
     <Wrapper>
@@ -18,13 +18,13 @@ export default function Login() {
         <Form onSubmit={handleSubmit}>
           <InputWrapper>
             <IconWrapper>
-              <FaIdCard />
+              <FaEnvelope />
             </IconWrapper>
             <Input
               type="text"
-              placeholder="아이디 또는 이메일"
-              value={eid}
-              onChange={(e) => setEid(e.target.value)}
+              placeholder="이메일"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </InputWrapper>
