@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import env from "@config/config";
 import { findUserByEmail, createUser, loginUser, authUser } from "@models/userModel";
 
-const JWT_SECRET = process.env.JWT_SECRET || "default_secret";
+const JWT_SECRET = env.JWT_SECRET || "default_secret";
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -14,7 +15,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    await createUser(name, email, pw, agent);
+    await createUser(name, email, agent, pw);
 
     res.status(201).json({ message: "회원가입 성공" });
   } catch (error) {

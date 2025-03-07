@@ -2,7 +2,7 @@ import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom"
 import styled from "styled-components";
 import Register from '@pages/Register';
 import Login from '@pages/Login'
-import OAuthCallback from "@pages/OAuthCallback";
+import OAuthResult from "@pages/OAuthResult";
 import Home from '@pages/Home';
 import MyPage from '@pages/MyPage';
 import Chat from "./pages/Chat";
@@ -32,7 +32,7 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
 const router = createBrowserRouter([
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
-  { path: "/oauth/:provider", element: <OAuthCallback /> },
+  { path: "/oauth-result", element: <OAuthResult />},
   {
     path: "/",
     element: (

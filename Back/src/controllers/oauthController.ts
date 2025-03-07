@@ -1,6 +1,11 @@
+import axios from 'axios';
 import env from "@config/config";
+import jwt from "jsonwebtoken";
 import { randomBytes } from "crypto";
 import { Request, Response } from "express";
+import { authUser, createUser, findUserByEmail } from '@src/models/userModel';
+
+const JWT_SECRET = env.JWT_SECRET || "default_secret";
 /**
  * 임의의 문자열(랜덤 state) 생성 함수
  * (참고: 이 방법은 간단한 예시이며, 보안용으로는 crypto API 사용을 권장)
@@ -22,14 +27,10 @@ export const naverLogin = async (req: Request, res: Response): Promise<void> => 
   res.redirect(naverAuthUrl);
 };
 
-import axios from 'axios';
-
 export const naverCallBack = async (req: Request, res: Response): Promise<void> => {
   const code = req.query.code;
   const state = req.query.state;
-
-  console.log('Authorization Code:', code);
-  console.log('State:', state);
+  const agent = 'naver';
 
   const clientId = env.NAVER_CLIENT_ID;
   const clientSecret = env.NAVER_CLIENT_SECRET;
@@ -48,9 +49,7 @@ export const naverCallBack = async (req: Request, res: Response): Promise<void> 
     });
 
     const { access_token } = tokenResponse.data;
-    console.log('Access Token:', access_token);
 
-    // 이후 액세스 토큰을 사용하여 사용자 정보 조회 로직을 추가합니다.
     const profileResponse = await axios.get('https://openapi.naver.com/v1/nid/me', {
       headers: {
         Authorization: `Bearer ${access_token}`,
@@ -59,6 +58,7 @@ export const naverCallBack = async (req: Request, res: Response): Promise<void> 
   
     const profileData = profileResponse.data;
     console.log('User Profile:', profileData);
+    await oauthLogin(profileData, agent, res);
   } catch (error) {
     console.error('Error fetching access token:', error);
     res.status(500).send('Error fetching access token');
@@ -114,3 +114,38 @@ export const appleLogin = async (req: Request, res: Response): Promise<void> => 
   )}&state=${state}&scope=${encodeURIComponent(scope)}&response_mode=${responseMode}`;
   res.redirect(appleAuthUrl);
 }
+
+/** 
+ * 데이터 저장 및 로그인
+*/
+const oauthLogin = async (profileData: any, agent: string, res: Response): Promise<void> => {
+  try {
+    const { email, name } = profileData.response;
+    debugger;
+    console.log(`email : ${email}`);
+    console.log(`name : ${name}`);
+    // 기존 유저 조회
+    let existingUser = await findUserByEmail(email, agent);
+    if (!existingUser) {
+      await createUser(name, email, agent);
+      existingUser = await findUserByEmail(email, agent);
+    }
+    console.log(`existingUser : ${existingUser}`);
+    if (!existingUser) {
+      res.status(400).json({ message: "오류가 발생하였습니다." });
+      return;
+    }
+    const uuid = existingUser.uuid;
+    const token = jwt.sign({ uuid: uuid }, JWT_SECRET, { expiresIn: "1h" });
+    console.log(`uuid : ${uuid}`);
+    console.log(`token : ${token}`);
+    await authUser(uuid, token);
+
+    // 클라이언트에 응답
+    res.cookie('authToken', token, { secure: true, sameSite: 'strict' });
+    res.redirect(env.FRONTEND_URL+'/oauth-result?status=success');
+  } catch (error) {
+    console.error('Error during user login:', error);
+    res.redirect(env.FRONTEND_URL+'/oauth-result?status=fail');
+  }
+};
