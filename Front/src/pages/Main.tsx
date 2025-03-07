@@ -1,7 +1,7 @@
 import { Link, useSearchParams } from "react-router-dom";
 import { Container } from "@styles/HomeStyles";
 import { useEffect } from "react";
-import { NavItem, NavList } from "@src/styles/MainStyles";
+import { NavItem, NavList } from "@styles/MainStyles";
 
 export default function Main() {
   const [searchParams, setSearchParams] = useSearchParams();

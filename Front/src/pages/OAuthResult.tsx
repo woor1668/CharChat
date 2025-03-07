@@ -11,11 +11,8 @@ export default function OAuthResult() {
     const status = queryParams.get('status');
 
     if (status === 'success') {
-        console.log('status:', status);
-        console.log('authToken:', Cookies.get('authToken'));
         const token = Cookies.get('authToken');
         if (token) {
-        console.log('토큰 확인 완료:', token);
         localStorage.setItem("token", token);
         navigate('/');
         } else {

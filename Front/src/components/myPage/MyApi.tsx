@@ -1,5 +1,5 @@
 import { ApiWrapper, H, P, HeaderRow, Input, InputWrapper, ToggleBall, ToggleSwitch, ApiButton } from "@styles/MyPageStyles";
-import { useMyApi } from "@src/hooks/UseMyPage";
+import { useMyApi } from "@hooks/UseMyPage";
 
 interface MyApiProps {
   title: string;

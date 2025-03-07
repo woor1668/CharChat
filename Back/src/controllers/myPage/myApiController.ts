@@ -1,4 +1,4 @@
-import { createAPI, selectAPI, updateToggle } from "@src/models/myPage/myApiModel";
+import { createAPI, selectAPI, updateToggle } from "@models/myPage/myApiModel";
 import { Request, Response } from "express";
 
 

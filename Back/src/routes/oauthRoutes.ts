@@ -1,12 +1,17 @@
 import express from "express";
-import { authenticateJWT } from "@middlewares/authMiddleware";
-import { appleLogin, googleLogin, kakaoLogin, naverCallBack, naverLogin } from "@controllers/oauthController";
+import { appleLogin, googleLogin, kakaoLogin, naverLogin } from "@controllers/oauthController";
+import { appleCallBack, googleCallBack, kakaoCallBack, naverCallBack } from "@controllers/oauthCallBackController";
 
 const oauthRouter = express.Router();
-console.log("oauth");
+
 oauthRouter.get("/naver", naverLogin);
-oauthRouter.get("/naverCallBack", naverCallBack);
 oauthRouter.get("/kakao", kakaoLogin);
 oauthRouter.get("/google", googleLogin);
 oauthRouter.get("/apple", appleLogin);
+
+oauthRouter.get("/naverCallBack", naverCallBack);
+oauthRouter.get("/kakaoCallBack", kakaoCallBack);
+oauthRouter.get("/googleCallBack", googleCallBack);
+oauthRouter.get("/appleCallBack", appleCallBack);
+
 export default oauthRouter;

@@ -7,7 +7,7 @@ import { Input } from "@src/styles/MyPageStyles";
 const ChatContainer = styled(Container)`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 50vh;
   padding: 20px;
 `;
 
