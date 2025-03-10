@@ -1,5 +1,5 @@
 import { FaEnvelope } from "react-icons/fa";
-import { Input, Button, Wrapper, Form, InputWrapper, IconWrapper, Container, StyledLink, StripedContainer, StripedText } from "@styles/AuthStyles";
+import { Input, Button, Form, InputWrapper, IconWrapper, Container, StyledLink, StripedContainer, StripedText, MyWrapper } from "@styles/AuthStyles";
 import { useLoginForm } from "@hooks/UseAuthForm";
 import PasswordInput from "@components/Password";
 import SocialLoginButtons from "@components/SocialLoginButtons";
@@ -8,7 +8,7 @@ export default function Login() {
   const { email, setEmail, password, setPassword, handleSubmit, showPassword, setShowPassword } = useLoginForm();
 
   return (
-    <Wrapper>
+    <MyWrapper>
       <Container>
         <h2>로그인</h2>
         <SocialLoginButtons />
@@ -41,6 +41,6 @@ export default function Login() {
           계정이 없으신가요? <StyledLink to="/register">회원가입</StyledLink>
         </p>
       </Container>
-    </Wrapper>
+    </MyWrapper>
   );
 }

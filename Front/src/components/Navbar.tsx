@@ -93,7 +93,7 @@ const Navbar: React.FC = () => {
       </NavList>
 
       {/* 우측 프로필 아이콘 (마이 페이지 링크) */}
-      <StyledLink to="/my">
+      <StyledLink to="/profile">
         <ProfileIcon />
       </StyledLink>
     </Nav>

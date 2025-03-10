@@ -1,4 +1,4 @@
-import { Container } from '@styles/HomeStyles';
+import { Container, HomeWrapper } from '@styles/HomeStyles';
 import { Section, SectionHeader, Content } from '@styles/MyPageStyles';
 import MyInfo from '@components/myPage/MyInfo';
 import MyApi from '@components/myPage/MyApi';
@@ -22,6 +22,7 @@ export default function MyPage() {
   }, [showApi]);
 
   return (
+    <HomeWrapper>
       <Container>
         <h2>My Page</h2>
 
@@ -47,5 +48,6 @@ export default function MyPage() {
           </Content>
         </Section>
       </Container>
+    </HomeWrapper>
   );
 }

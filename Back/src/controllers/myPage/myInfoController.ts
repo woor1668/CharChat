@@ -4,8 +4,8 @@ import { Request, Response } from "express";
 export const selectMyInfo = async (req: Request, res: Response): Promise<void> => {
   try {
     const uuid = (req as any).user?.uuid;
+    console.log(uuid);
     const info = await selectInfo(uuid);
-
     res.json({ info });
   } catch (error) {
     console.error("조회 오류:", error);

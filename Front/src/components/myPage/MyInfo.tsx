@@ -1,4 +1,4 @@
-import { ApiWrapper, InfoItem, SelectBox, InfoButton, Strong, ButtonDiv } from "@styles/MyPageStyles";
+import { ApiWrapper, InfoItem, InfoButton, Strong, ButtonDiv } from "@styles/MyPageStyles";
 import { useMyInfo } from "@hooks/UseMyPage";
 import PasswordInput, { PasswordForm } from "../Password";
 
@@ -27,21 +27,7 @@ export default function MyInfo() {
   return (
     <ApiWrapper>
       <InfoItem>
-        <Strong>이름</Strong> {info.name}
-      </InfoItem>
-      <InfoItem>
         <Strong>아이디</Strong> {info.id}
-      </InfoItem>
-      <InfoItem>
-        <Strong>이메일</Strong> {info.email}
-      </InfoItem>
-      <InfoItem>
-        <Strong>언어</Strong>
-        <SelectBox value={selectedLang} onChange={handleLangChange}>
-          <option value="eng">영어</option>
-          <option value="jpn">일본어</option>
-          <option value="chn">중국어</option>
-        </SelectBox>
       </InfoItem>
         {showPwInput ? (
           <>
@@ -74,7 +60,6 @@ export default function MyInfo() {
         )}
       <ButtonDiv>
         <InfoButton onClick={handlePasswordChange}>{showPwInput ? '취소' : '비밀번호 변경'}</InfoButton>
-        <InfoButton onClick={handleSave}>저장</InfoButton>
       </ButtonDiv>
     </ApiWrapper>
   );

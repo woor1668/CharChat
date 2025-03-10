@@ -1,4 +1,4 @@
-import { InputWrapper, Input, Button, Wrapper, Form, IconWrapper, Container, StyledLink } from "@styles/AuthStyles";
+import { InputWrapper, Input, Button, Form, IconWrapper, Container, StyledLink, MyWrapper } from "@styles/AuthStyles";
 import { FaUser, FaEnvelope, FaIdCard  } from "react-icons/fa";
 import { useRegisterForm } from "@hooks/UseAuthForm";
 import PasswordInput, { PasswordForm } from "@components/Password";
@@ -11,7 +11,7 @@ export default function Register() {
         } = useRegisterForm();
 
   return (
-    <Wrapper>
+    <MyWrapper>
       <Container>
         <h2>회원가입</h2>
         <Form onSubmit={handleSubmit}>
@@ -56,6 +56,6 @@ export default function Register() {
           계정이 있으신가요? <StyledLink to="/login">로그인</StyledLink>
         </p>
       </Container>
-    </Wrapper>
+    </MyWrapper>
   );
 }

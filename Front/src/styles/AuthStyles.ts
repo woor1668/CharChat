@@ -4,10 +4,13 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  width: 480px;
   height: 100%;
   padding: 50px 0px;
   `;
+
+export const MyWrapper = styled(Wrapper)`
+  width: 480px;
+`;
 
 export const Container = styled.div`
   width: 100%;
@@ -16,7 +19,8 @@ export const Container = styled.div`
   box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.5);
   padding: 20px;
   margin: 10px;
-`
+`;
+
 export const Form = styled.form`
   display: flex;
   flex-direction: column;

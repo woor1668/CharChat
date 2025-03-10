@@ -1,13 +1,13 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "@components/Navbar";
-import { Wrapper } from "@styles/HomeStyles";
+import { HomeWrapper } from "@src/styles/HomeStyles";
 
 export default function Home() {
 
   return (
-    <Wrapper>
+    <HomeWrapper>
       <Navbar />
       <Outlet />
-    </Wrapper>
+    </HomeWrapper>
   );
 }

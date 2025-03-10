@@ -4,6 +4,7 @@ import Register from '@pages/Register';
 import Login from '@pages/Login'
 import OAuthResult from "@pages/OAuthResult";
 import Home from '@pages/Home';
+import Profile from '@pages/Profile';
 import MyPage from '@pages/MyPage';
 import Chat from "./pages/Chat";
 import { getAuth } from "@services/AuthService";
@@ -45,6 +46,11 @@ const router = createBrowserRouter([
       { path: "", element: <Chat /> },
       { path: "my", element: <MyPage /> },
     ],
+  },
+  { path: "/profile", 
+    element:  <ProtectedRoute>
+              <Profile />
+              </ProtectedRoute>
   },
 ]);
 
