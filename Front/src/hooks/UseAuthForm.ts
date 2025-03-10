@@ -8,6 +8,7 @@ import { usePasswordValidation } from "./UsePasswordValidation";
 export function useRegisterForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [nickName, setNickName] = useState("");
   const [loading, setLoading] = useState(false);
   const { showAlert } = usePopup();
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ export function useRegisterForm() {
       if (!loading) {
           try {
               setLoading(true);
-              await registerUser(name, email, password);
+              await registerUser(name, email, nickName, password);
               await showAlert({ message: "회원가입 성공하였습니다.", header: "성공" });
               navigate("/login");
           } catch (err) {
@@ -44,6 +45,7 @@ export function useRegisterForm() {
   return {
       name, setName,
       email, setEmail,
+      nickName, setNickName,
       password, setPassword,
       showPassword, setShowPassword,
       rePassword, setRePassword,

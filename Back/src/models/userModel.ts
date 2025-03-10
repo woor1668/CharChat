@@ -16,13 +16,13 @@ export const findUserByEmail = async (email: string, agent?: string): Promise<Us
   return rows.length ? rows[0] : null;
 };
 
-export const createUser = async (name: string, email: string, agent: string, pw?: string ): Promise<void> => {
+export const  createUser = async (name: string, email: string, agent: string, nickName?: string, pw?: string ): Promise<void> => {
   const conn = await pool.getConnection();
   const query = pw ? 
-    "INSERT INTO TB_USERS (NAME, EMAIL, PASSWORD, AUTH_AGENT) values (?, ?, SHA2(?, 256), ?)" :
+    "INSERT INTO TB_USERS (NAME, EMAIL, NICKNAME, PASSWORD, AUTH_AGENT) values (?, ?, ?, SHA2(?, 256), ?)" :
     "INSERT INTO TB_USERS (NAME, EMAIL, PASSWORD, AUTH_AGENT) values (?, ?, NULL, ?)";
 
-  const params = pw ? [name, email, pw, agent] : [name, email, agent];
+  const params = pw ? [name, email, nickName, pw, agent] : [name, email, agent];
 
   await conn.query(query, params);
   conn.release();

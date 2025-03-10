@@ -7,7 +7,7 @@ const JWT_SECRET = env.JWT_SECRET || "default_secret";
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { name, email, pw, agent } = req.body;   
+    const { name, email, nickName, pw, agent } = req.body;   
 
     const existingUser = await findUserByEmail(email);
     if (existingUser) {
@@ -15,7 +15,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    await createUser(name, email, agent, pw);
+    await createUser(name, email, agent, nickName, pw);
 
     res.status(201).json({ message: "회원가입 성공" });
   } catch (error) {
