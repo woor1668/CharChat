@@ -1,7 +1,10 @@
 import styled from "styled-components";
-import { Wrapper } from "./AuthStyles";
+import { Wrapper } from "./MainStyles";
 
 export const HomeWrapper = styled(Wrapper)`
+  flex-direction: column;
+`
+export const OutletWrapper = styled(Wrapper)`
   width: 1080px;
   flex-direction: column;
 `;

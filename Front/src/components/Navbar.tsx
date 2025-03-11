@@ -5,9 +5,9 @@ import { FaUserCircle, FaBars } from "react-icons/fa";
 import { logoutUser } from "@services/AuthService";
 
 const Nav = styled.nav`
+  width: 100%;
   background: #333;
   color: #fff;
-  padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,6 +20,7 @@ const MenuToggle = styled.button`
   color: #fff;
   font-size: 24px;
   cursor: pointer;
+  margin-left: 30px;
 `;
 
 const NavList = styled.ul<{ isOpen: boolean }>`
@@ -49,6 +50,7 @@ const NavItem = styled.li`
 const ProfileIcon = styled(FaUserCircle)`
   font-size: 28px;
   cursor: pointer;
+  margin-right: 30px;
 `;
 
 const StyledLink = styled(Link)`

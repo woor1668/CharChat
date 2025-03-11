@@ -45,12 +45,8 @@ const router = createBrowserRouter([
       // { path:"/notice/:id", element:<Notice />},
       { path: "", element: <Chat /> },
       { path: "my", element: <MyPage /> },
+      { path: "/profile", element: <Profile />},
     ],
-  },
-  { path: "/profile", 
-    element:  <ProtectedRoute>
-              <Profile />
-              </ProtectedRoute>
   },
 ]);
 

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import env from "@config/config";
-import { findUserByEmail, createUser, loginUser, authUser } from "@models/userModel";
+import { findUserByEmail, createUser, loginUser, authUser } from "@models/authModel";
 
 const JWT_SECRET = env.JWT_SECRET || "default_secret";
 

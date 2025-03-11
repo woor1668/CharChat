@@ -1,12 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-
-export const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  height: 100%;
-  padding: 50px 0px;
-  `;
+import { Wrapper } from "./MainStyles";
 
 export const MyWrapper = styled(Wrapper)`
   width: 480px;

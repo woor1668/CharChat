@@ -1,7 +1,7 @@
 import { checkApiKeyValidityForAi, SelectMyAPI, CreateMyAPI, toggleChange } from "@services/myPage/MyApiService";
 import { useState, useEffect, useCallback } from "react";
 import { usePopup } from "./UsePopup";
-import { SelectMyInfo, updateMyInfo } from "@services/myPage/MyInfoService";
+import { SelectMyInfo, updateMyInfo } from "@src/services/myPage/MyInfoService";
 import { usePasswordValidation } from "./UsePasswordValidation";
 
 interface UserInfo {

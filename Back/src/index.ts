@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import authRoutes from "@routes/authRoutes";
 import oauthRoutes from "@routes/oauthRoutes";
+import userInfoRoutes from "@routes/userInfoRoutes";
 import myApiRoutes from "@routes/myPage/myApiRoutes";
 import myInfoRoutes from "@routes/myPage/myInfoRoutes";
 const app = express();
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/oauth", oauthRoutes);
 //MyPage
+app.use("/userInfo", userInfoRoutes);
 app.use("/myInfo", myInfoRoutes);
 app.use("/myApi", myApiRoutes);
 
