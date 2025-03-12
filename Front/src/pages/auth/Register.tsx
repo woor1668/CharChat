@@ -1,7 +1,7 @@
 import { InputWrapper, Input, Button, Form, IconWrapper, Container, StyledLink, MyWrapper } from "@styles/AuthStyles";
 import { FaUser, FaEnvelope, FaIdCard  } from "react-icons/fa";
 import { useRegisterForm } from "@hooks/UseAuthForm";
-import PasswordInput, { PasswordForm } from "@components/Password";
+import PasswordInput, { PasswordForm } from "@components/common/Password";
 
 export default function Register() {
   const { name, setName, email, setEmail, nickName, setNickName,

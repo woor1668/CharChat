@@ -1,5 +1,4 @@
-import { Container, HomeWrapper } from '@styles/HomeStyles';
-import { Section, SectionHeader, Content } from '@styles/MyPageStyles';
+import { Section, SectionHeader, Content, MyPageContainer } from '@styles/MyPageStyles';
 import MyInfo from '@components/myPage/MyInfo';
 import MyApi from '@components/myPage/MyApi';
 import { TbCaretDownFilled, TbCaretUpFilled } from "react-icons/tb";
@@ -14,7 +13,7 @@ export default function MyPage() {
   const [apiMaxHeight, setApiMaxHeight] = useState("0px");
 
   useEffect(() => {
-    setInfoMaxHeight(showInfo ? "500px" : "0px");
+    setInfoMaxHeight(showInfo ? "650px" : "0px");
   }, [showInfo]);
 
   useEffect(() => {
@@ -22,10 +21,7 @@ export default function MyPage() {
   }, [showApi]);
 
   return (
-    <HomeWrapper>
-      <Container>
-        <h2>My Page</h2>
-
+      <MyPageContainer>
         <Section>
           <SectionHeader onClick={() => setShowInfo(!showInfo)}>
             내 정보
@@ -47,7 +43,6 @@ export default function MyPage() {
             <MyApi title="Claude" activeApi={activeApi} setActiveApi={setActiveApi} />
           </Content>
         </Section>
-      </Container>
-    </HomeWrapper>
+      </MyPageContainer>
   );
 }

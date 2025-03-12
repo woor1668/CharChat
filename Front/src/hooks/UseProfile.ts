@@ -4,6 +4,7 @@ import { SelectUserInfo } from "@services/UserInfoService";
 interface UserInfo {
     nickName: string;
     profileUrl: string;
+    bio: string;
 }
 
 export function useUserInfo() {

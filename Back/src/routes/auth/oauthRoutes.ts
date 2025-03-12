@@ -1,6 +1,6 @@
 import express from "express";
-import { appleLogin, googleLogin, kakaoLogin, naverLogin } from "@controllers/oauthController";
-import { appleCallBack, googleCallBack, kakaoCallBack, naverCallBack } from "@controllers/oauthCallBackController";
+import { appleLogin, googleLogin, kakaoLogin, naverLogin } from "@controllers/auth/oauthController";
+import { appleCallBack, googleCallBack, kakaoCallBack, naverCallBack } from "@controllers/auth/oauthCallBackController";
 
 const oauthRouter = express.Router();
 

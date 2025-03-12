@@ -8,7 +8,7 @@ export interface API {
 
 export const selectAPI = async (uuid: string, ai: string): Promise<API | null> => {
   const conn = await pool.getConnection();
-  const rows = await conn.query("SELECT * FROM USERS_API WHERE UUID = ? AND AI = ?", [uuid, ai]);
+  const rows = await conn.query("SELECT * FROM TB_USERS_API WHERE UUID = ? AND AI = ?", [uuid, ai]);
   conn.release();
   return rows.length ? rows[0] : null;
 };
@@ -18,7 +18,7 @@ export const createAPI = async (uuid: string, ai: string, apiKey: string): Promi
   try {
     // 기존 레코드 조회
     const rows = await conn.query(
-      "SELECT API_KEY FROM USERS_API WHERE UUID = ? AND AI = ?",
+      "SELECT API_KEY FROM TB_USERS_API WHERE UUID = ? AND AI = ?",
       [uuid, ai]
     );
     if (rows.length > 0) {
@@ -26,12 +26,12 @@ export const createAPI = async (uuid: string, ai: string, apiKey: string): Promi
       if (rows[0].API_KEY !== apiKey) {
         if(apiKey !== ''){
           await conn.query(
-            "UPDATE USERS_API SET API_KEY = ? WHERE UUID = ? AND AI = ?",
+            "UPDATE TB_USERS_API SET API_KEY = ? WHERE UUID = ? AND AI = ?",
             [apiKey, uuid, ai]
           );
         }else{
           await conn.query(
-            "DELETE FROM USERS_API WHERE UUID = ? AND AI = ?",
+            "DELETE FROM TB_USERS_API WHERE UUID = ? AND AI = ?",
             [uuid, ai]
           );
         }
@@ -39,7 +39,7 @@ export const createAPI = async (uuid: string, ai: string, apiKey: string): Promi
     } else {
       // 데이터가 없으면 새로 삽입
       await conn.query(
-        "INSERT INTO USERS_API (UUID, AI, API_KEY) VALUES (?, ?, ?)",
+        "INSERT INTO TB_USERS_API (UUID, AI, API_KEY) VALUES (?, ?, ?)",
         [uuid, ai, apiKey]
       );
     }
@@ -50,12 +50,11 @@ export const createAPI = async (uuid: string, ai: string, apiKey: string): Promi
 
 export const updateToggle = async (uuid: string, ai: string): Promise<void> => {
   const conn = await pool.getConnection();
-  console.log(ai);
   if(ai === ''){
-    await conn.query("UPDATE USERS_API SET CHECKED = false WHERE UUID = ?", [uuid]);
+    await conn.query("UPDATE TB_USERS_API SET CHECKED = false WHERE UUID = ?", [uuid]);
   }else{
     await conn.query(`
-      UPDATE USERS_API 
+      UPDATE TB_USERS_API 
       SET CHECKED = CASE 
           WHEN AI = ? THEN true 
           ELSE false 

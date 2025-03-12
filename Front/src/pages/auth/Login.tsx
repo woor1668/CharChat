@@ -1,7 +1,7 @@
 import { FaEnvelope } from "react-icons/fa";
 import { Input, Button, Form, InputWrapper, IconWrapper, Container, StyledLink, StripedContainer, StripedText, MyWrapper } from "@styles/AuthStyles";
 import { useLoginForm } from "@hooks/UseAuthForm";
-import PasswordInput from "@components/Password";
+import PasswordInput from "@components/common/Password";
 import SocialLoginButtons from "@components/SocialLoginButtons";
 
 export default function Login() {

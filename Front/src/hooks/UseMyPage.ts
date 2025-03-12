@@ -1,14 +1,14 @@
 import { checkApiKeyValidityForAi, SelectMyAPI, CreateMyAPI, toggleChange } from "@services/myPage/MyApiService";
 import { useState, useEffect, useCallback } from "react";
 import { usePopup } from "./UsePopup";
-import { SelectMyInfo, updateMyInfo } from "@src/services/myPage/MyInfoService";
+import { SelectMyInfo, updateMyInfo } from "@services/myPage/MyInfoService";
 import { usePasswordValidation } from "./UsePasswordValidation";
 
 interface UserInfo {
-  name: string;
-  id: string;
-  email: string;
-  lang: string;
+  nickName: string;
+  profileUrl: string;
+  bio: string;
+  agent: string;
 }
 
 const TOGGLE_LOCK_TIME = 30000;
@@ -17,7 +17,6 @@ const TOGGLE_LOCK_TIME = 30000;
 export function useMyInfo() {
   const [info, setInfo] = useState<UserInfo | null>(null);
   const [loading, setLoading] = useState(false);
-  const [selectedLang, setSelectedLang] = useState<string>("eng");
   const [showPwInput, setShowPwInput] = useState(false);
 
   const { showAlert } = usePopup();
@@ -30,7 +29,6 @@ export function useMyInfo() {
       if (!data) return;
 
       setInfo(data.info);
-      setSelectedLang(data.info.lang);
       setShowPwInput(false);
       setPassword('');
       setRePassword('');
@@ -45,6 +43,17 @@ export function useMyInfo() {
     fetchData();
   }, [fetchData]);
 
+  const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.target;
+    if (files && files.length === 1) {
+        const file = files[0];
+        if (file.size / (1024 * 1024) >= 1) {
+            return alert("파일 크기가 1MB 이상입니다. 다른 파일을 선택하세요.");
+        }
+
+      }
+  };
+
   const {
     password, setPassword,
     showPassword, setShowPassword,
@@ -52,11 +61,6 @@ export function useMyInfo() {
     showRePassword, setShowRePassword,
     isCfPw, isValPw
   } = usePasswordValidation();
-
-  // 언어 변경 핸들러
-  const handleLangChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedLang(e.target.value);
-  };
 
   // 패스워드 입력 여부 토글
   const handlePasswordChange = () => {
@@ -74,7 +78,7 @@ export function useMyInfo() {
     setLoading(true);
 
     try {
-      await updateMyInfo(selectedLang, showPwInput, password);
+      await updateMyInfo(showPwInput, password);
       showAlert({ message: "저장되었습니다.", header: "성공" });
       await fetchData();
     } catch (error) {
@@ -83,16 +87,15 @@ export function useMyInfo() {
     } finally {
       setLoading(false);
     }
-  }, [loading, isValPw, isCfPw, selectedLang, showPwInput, password, fetchData, showAlert]);
+  }, [loading, isValPw, isCfPw, showPwInput, password, fetchData, showAlert]);
 
   return {
-    info, isCfPw, isValPw, loading,
-    selectedLang, showPwInput,
+    info, isCfPw, isValPw, showPwInput,
     password, setPassword,
     showPassword, setShowPassword,
     rePassword, setRePassword,
     showRePassword, setShowRePassword,
-    handleLangChange, handlePasswordChange, handleSave,
+    handleAvatarChange, handlePasswordChange, handleSave,
   };
 }
 

@@ -1,4 +1,4 @@
-import { ApiWrapper, H, P, HeaderRow, Input, InputWrapper, ToggleBall, ToggleSwitch, ApiButton } from "@styles/MyPageStyles";
+import { ApiWrapper, H, P, HeaderRow, InputWrapper, ToggleBall, ToggleSwitch, ApiButton, ApiInput } from "@styles/MyPageStyles";
 import { useMyApi } from "@hooks/UseMyPage";
 
 interface MyApiProps {
@@ -26,7 +26,7 @@ export default function MyApi({ title, activeApi, setActiveApi }: MyApiProps) {
         </ToggleSwitch>
       </HeaderRow>
       <InputWrapper>
-        <Input
+        <ApiInput
           type="password"
           placeholder={`Enter ${title} API Key`}
           value={apiKey}

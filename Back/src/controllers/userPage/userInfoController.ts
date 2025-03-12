@@ -1,4 +1,4 @@
-import { selectInfo } from "@models/userInfoModel";
+import { selectInfo } from "@models/userPage/userInfoModel";
 import { Request, Response } from "express";
 
 export const selectUserInfo = async (req: Request, res: Response): Promise<void> => {

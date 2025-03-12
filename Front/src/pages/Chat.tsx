@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { Container } from "@styles/HomeStyles";
-import { Input } from "@src/styles/MyPageStyles";
+import { Input } from "@styles/MyPageStyles";
 
 // Styled components for the chat interface
 const ChatContainer = styled(Container)`

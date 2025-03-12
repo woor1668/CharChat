@@ -1,26 +1,46 @@
-import { useState } from "react";
-import { HomeWrapper } from "@styles/HomeStyles";
+import Modal from "@components/common/Modal";
+import MyPage from "./MyPage";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useUserInfo } from "@hooks/UseProfile";
-import { Body, BodyHeader, Button, Header, ProfileImg, ProfileWapper, Sorting, Total, UserInfo, SortOptions, SortButton, HeaderLeft, Title, HeaderRight } from "@styles/ProfileStlyes";
+import { 
+  Body, BodyHeader, Button, Header, ProfileImg, ProfileWapper, Total, UserInfo, 
+  Sorting, SortOptions, SortButton, HeaderLeft, Title, HeaderRight 
+} from "@styles/ProfileStlyes";
 import { FaUser } from "react-icons/fa";
 
 export default function Home() {
   const { info } = useUserInfo() ?? {};
-  const [sortOption, setSortOption] = useState("popular"); // 기본 정렬: 인기순
+  const [sortOption, setSortOption] = useState("popular");
   const [showSortOptions, setShowSortOptions] = useState(false);
+  const [showMypage, setShowMypage] = useState(false);
+  const sortRef = useRef<HTMLDivElement | null>(null);
 
-  const handleSortClick = () => {
-    setShowSortOptions(!showSortOptions);
-  };
+  // ✅ useCallback으로 리렌더링 최적화
+  const handleSortClick = useCallback((event: React.MouseEvent) => {
+    event.stopPropagation();
+    setShowSortOptions((prev) => !prev);
+  }, []);
 
-  const handleSortOptionChange = (option) => {
+  const handleSortOptionChange = useCallback((option: string) => {
     setSortOption(option);
     setShowSortOptions(false);
-    // 작품 리스트를 선택한 옵션에 맞게 정렬하는 로직 추가
-  };
+  }, []);
+
+  useEffect(() => {
+    if (!showSortOptions) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sortRef.current && !sortRef.current.contains(event.target as Node)) {
+        setShowSortOptions(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, [showSortOptions]);
 
   return (
-    <HomeWrapper>
+    <>
       <Header>
         <UserInfo>
           <ProfileWapper>
@@ -28,8 +48,9 @@ export default function Home() {
           </ProfileWapper>
           <div>{info?.nickName}</div>
         </UserInfo>
-        <Button>수정</Button>
+        <Button onClick={() => setShowMypage(true)}>수정</Button>
       </Header>
+      <div>{info?.bio}</div>
       <Body>
         <BodyHeader>
           <HeaderLeft>
@@ -37,20 +58,25 @@ export default function Home() {
             <Total>총 0개</Total>
           </HeaderLeft>
           <HeaderRight>
-            <Sorting onClick={handleSortClick}>
+            <Sorting 
+              onClick={handleSortClick} 
+              showSortOptions={showSortOptions}
+            >
               정렬 : {sortOption === "popular" ? "인기순" : sortOption === "newest" ? "최신순" : "오래된순"}
             </Sorting>
           </HeaderRight>
         </BodyHeader>
         {showSortOptions && (
-          <SortOptions>
+          <SortOptions ref={sortRef}>
             <SortButton onClick={() => handleSortOptionChange("popular")}>인기순</SortButton>
             <SortButton onClick={() => handleSortOptionChange("newest")}>최신순</SortButton>
             <SortButton onClick={() => handleSortOptionChange("oldest")}>오래된순</SortButton>
           </SortOptions>
         )}
-        {/* 작품 리스트 컴포넌트를 선택한 정렬 옵션에 따라 렌더링 */}
       </Body>
-    </HomeWrapper>
+      <Modal isOpen={showMypage} onClose={() => setShowMypage(false)} title="마이페이지">
+        <MyPage/>
+      </Modal>
+    </>
   );
 }

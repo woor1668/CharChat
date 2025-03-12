@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
 // 헤더 부분 //
+export const MyPageContainer = styled.div`
+  width: 100%;
+`;
+
 export const Section = styled.div`
   margin-bottom: 20px;
   border: 1px solid #ddd;
@@ -42,16 +46,6 @@ export const H = styled.h4`
     margin: 0;
 `;
 
-export const Strong = styled.strong`
-`;
-
-export const Input = styled.input`
-    flex: 8;
-    padding: 10px;
-    border: none;
-    outline: none;
-`;
-
 export const Button = styled.button`
     flex: 2;
 `;
@@ -65,24 +59,49 @@ export const InputWrapper = styled.div`
     overflow: hidden;
 `;
 
-export const InfoItem = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #fff;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+// MyInfo
+export const AvatarWapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    font-size: 1.5em;
 `;
 
-// MyInfo
-export const SelectBox = styled.select`
-  padding: 5px 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 14px;
-  background: white;
-  cursor: pointer;
+export const AvatarUpload = styled.label`
+    cursor: pointer;
+`;
+
+export const AvatarImg = styled.img`
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+`;
+
+export const AvatarInput = styled.input`
+    display: none;
+`;
+
+export const InfoItem = styled.div`
+    border-radius: 5px;
+`;
+
+export const InfoInput = styled.input`
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: calc(100% - 10px);
+    font-size: 1.2em;
+    padding: 5px;
+`;
+
+export const InfoTextArea = styled.textarea`
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: calc(100% - 10px);
+    font-size: 1.1em;
+    padding: 5px;
+    height: 100px;
+    resize: none;
 `;
 
 export const ButtonDiv = styled.div`
@@ -135,10 +154,16 @@ export const ToggleBall = styled.div<ToggleProps>`
     transition: left 0.3s;
 `;
 
+export const ApiInput = styled.input`
+    flex: 8;
+    padding: 10px;
+    border: none;
+    outline: none;
+`;
+
 export const ApiButton = styled.button`
     flex: 2;
 `;
-
 
 export const P = styled.p`
   width: 100%;

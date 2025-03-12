@@ -8,6 +8,7 @@ export const Header = styled.div`
   font-size: 2.5em;
   font-weight: 900;
   padding: 20px;
+  margin: 20px;
   background-color: #fff;
 `;
 
@@ -42,7 +43,6 @@ export const Button = styled.button`
 export const Body = styled.div`
   position: relative;
   padding: 20px;
-  padding-bottom: 140px; /* 정렬 옵션이 표시될 공간 확보 */
   background-color: #fafafa;
   width: 100%;
   min-height: calc(100vh - 140px);
@@ -51,8 +51,7 @@ export const Body = styled.div`
 export const BodyHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  background-color: #f8f8f8;
+  align-items: center;  
   border-bottom: 1px solid #ddd;
 `;
 
@@ -78,24 +77,23 @@ export const HeaderRight = styled.div`
   align-items: center;
 `;
 
-export const Sorting = styled.p`
+export const Sorting = styled.p<{ showSortOptions: boolean }>`
   cursor: pointer;
-  font-size: 1.2em;
-  color: #007bff;
+  font-size: 0.9em;
+  padding: 10px;
   margin: 0;
+  background-color: ${(props) => (props.showSortOptions ? "#ddd" : "transparent")};
 `;
 
 export const SortOptions = styled.div`
   position: absolute;
-  top: 10;
+  top: 1;
   right: 0;
-  background: #fff;
   border-top: 1px solid #ddd;
   display: flex;
-  flex-direction: column; /* 옵션들을 세로로 정렬 */
+  flex-direction: column;
   align-items: center;
-  padding: 15px 0;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 `;
 
 export const SortButton = styled.button`
@@ -109,9 +107,8 @@ export const SortButton = styled.button`
   margin-bottom: 10px;
   border-radius: 4px;
   font-size: 1em;
-  transition: background 0.2s ease;
   &:hover {
-    background: none !important;
+    background: #ddd !important;
   }
   &:last-child {
     margin-bottom: 0;

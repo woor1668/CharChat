@@ -5,7 +5,7 @@ export const HomeWrapper = styled(Wrapper)`
   flex-direction: column;
 `
 export const OutletWrapper = styled(Wrapper)`
-  width: 1080px;
+  max-width: 1080px;
   flex-direction: column;
 `;
 

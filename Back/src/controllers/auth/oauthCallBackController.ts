@@ -3,7 +3,7 @@ import env from "@config/config";
 import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
 import { CALL_BACK_URL } from './oauthController';
-import { authUser, createUser, findUserByEmail } from '@models/authModel';
+import { authUser, createUser, findUserByEmail } from '@models/auth/authModel';
 
 interface UserProfile {
     email: string;

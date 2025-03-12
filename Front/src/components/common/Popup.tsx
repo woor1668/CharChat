@@ -2,7 +2,7 @@ import React, { createContext, useState } from "react";
 import { 
   Popup, PopupHeader, PopupImage, PopupMessage, 
   PopupOverlay, Button, ButtonGroup 
-} from "@styles/PopupStyles";
+} from "@styles/common/PopupStyles";
 
 interface PopupState {
   message?: string;

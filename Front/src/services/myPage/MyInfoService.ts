@@ -2,10 +2,10 @@ import { api } from "../Api";
 
 interface InfoResponse {
     info: {
-      name: string;
-      id: string;
-      email: string;
-      lang: string;
+      nickName: string;
+      profileUrl: string;
+      bio: string;
+      agent: string;
     }
 }
 
@@ -20,10 +20,9 @@ export const SelectMyInfo = async () => {
   }
 };
 
-export const updateMyInfo = async (lang: string, isPw: boolean, pw: string) => {
+export const updateMyInfo = async (isPw: boolean, pw: string) => {
   try {
     const response = await api.post<InfoResponse>("/myInfo/updateInfo", {
-      lang,
       isPw,
       pw
     });

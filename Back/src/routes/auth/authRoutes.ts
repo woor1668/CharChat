@@ -1,5 +1,5 @@
 import express from "express";
-import { register, login, auth } from "@controllers/authController";
+import { register, login, auth } from "@controllers/auth/authController";
 import { authenticateJWT } from "@middlewares/authMiddleware";
 
 const authRouter = express.Router();

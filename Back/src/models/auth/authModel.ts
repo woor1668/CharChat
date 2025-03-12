@@ -37,6 +37,6 @@ export const loginUser = async (email: string, pw: string): Promise<User | null>
 
 export const authUser = async (uuid: string, token: string): Promise<void> => {
   const conn = await pool.getConnection();
-  await conn.query("INSERT INTO AUTH_USERS (UUID, TOKEN) values (?, ?)", [uuid, token]);
+  await conn.query("INSERT INTO TB_AUTH_USERS (UUID, TOKEN) values (?, ?)", [uuid, token]);
   conn.release();
 };

@@ -4,6 +4,7 @@ interface InfoResponse {
     info: {
       nickName: string;
       profileUrl: string;
+      bio: string;
     }
 }
 

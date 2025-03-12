@@ -1,14 +1,14 @@
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom"
 import styled from "styled-components";
-import Register from '@pages/Register';
-import Login from '@pages/Login'
-import OAuthResult from "@pages/OAuthResult";
+import Register from '@pages/auth/Register';
+import Login from '@pages/auth/Login'
+import OAuthResult from "@pages/auth/OAuthResult";
 import Home from '@pages/Home';
 import Profile from '@pages/Profile';
 import MyPage from '@pages/MyPage';
 import Chat from "./pages/Chat";
 import { getAuth } from "@services/AuthService";
-import { PopupProvider } from "@components/Popup";
+import { PopupProvider } from "@components/common/Popup";
 import { ReactNode, useEffect, useState } from "react";
 import LoadingScreen from "@components/loading-screen";
 
