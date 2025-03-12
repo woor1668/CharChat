@@ -72,12 +72,6 @@ export const AvatarUpload = styled.label`
     cursor: pointer;
 `;
 
-export const AvatarImg = styled.img`
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-`;
-
 export const AvatarInput = styled.input`
     display: none;
 `;

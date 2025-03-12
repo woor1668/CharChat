@@ -1,11 +1,22 @@
-import { selectInfo, updateInfo } from "@models/myPage/myInfoModel";
+import { selectInfo, updateInfo, upsertProfile } from "@models/myPage/myInfoModel";
 import { Request, Response } from "express";
 
 export const selectMyInfo = async (req: Request, res: Response): Promise<void> => {
   try {
     const uuid = (req as any).user?.uuid;
-    console.log(uuid);
     const info = await selectInfo(uuid);
+    res.json({ info });
+  } catch (error) {
+    console.error("조회 오류:", error);
+    res.status(500).json({ message: "서버 오류 발생" });
+  }
+};
+
+export const upsertMyProfile = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const uuid = (req as any).user?.uuid;
+    const { profile } = req.body;  
+    const info = await upsertProfile(uuid, profile);
     res.json({ info });
   } catch (error) {
     console.error("조회 오류:", error);
@@ -15,10 +26,10 @@ export const selectMyInfo = async (req: Request, res: Response): Promise<void> =
 
 export const updateMyInfo = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { lang, isPw, pw } = req.body;   
+    const { isPw, pw, nickName, bio } = req.body;   
     const uuid = (req as any).user?.uuid;
 
-    await updateInfo(uuid, lang, isPw, pw);
+    await updateInfo(uuid, isPw, pw, nickName, bio);
 
     res.status(201).json({ message: "저장 성공" });
   } catch (error) {

@@ -3,15 +3,15 @@ import { api } from "../Api";
 interface InfoResponse {
     info: {
       nickName: string;
-      profileUrl: string;
+      profile: string;
       bio: string;
       agent: string;
     }
 }
 
-export const SelectMyInfo = async () => {
+export const selectMyInfo = async () => {
   try {
-    const response = await api.post<InfoResponse>("/myInfo/selectInfo", {
+    const response = await api.post<InfoResponse>("/myInfo/selectMyInfo", {
     });
     return response.data;
   } catch (error) {
@@ -20,11 +20,26 @@ export const SelectMyInfo = async () => {
   }
 };
 
-export const updateMyInfo = async (isPw: boolean, pw: string) => {
+export const upsertMyProfile = async (profile: string) => {
   try {
-    const response = await api.post<InfoResponse>("/myInfo/updateInfo", {
+    console.log(profile);
+    const response = await api.post<InfoResponse>("/myInfo/upsertMyProfile", {
+      profile
+    });
+    return response.data;
+  } catch (error) {
+    console.error("create Error:", error);
+    throw error;
+  }
+};
+
+export const updateMyInfo = async (isPw: boolean, pw: string, nickName: string, bio: string) => {
+  try {
+    const response = await api.post<InfoResponse>("/myInfo/updateMyInfo", {
       isPw,
-      pw
+      pw,
+      nickName,
+      bio,
     });
     return response.data;
   } catch (error) {

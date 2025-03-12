@@ -7,6 +7,8 @@ import {
   Sorting, SortOptions, SortButton, HeaderLeft, Title, HeaderRight 
 } from "@styles/ProfileStlyes";
 import { FaUser } from "react-icons/fa";
+import { getPublicProfileUrl } from "@services/supabaseClient";
+import { ModalProvider } from "@context/ModalContext";
 
 export default function Home() {
   const { info } = useUserInfo() ?? {};
@@ -39,12 +41,14 @@ export default function Home() {
     return () => document.removeEventListener("click", handleClickOutside);
   }, [showSortOptions]);
 
+  const ProfileUrl = getPublicProfileUrl(info?.profile ?? null);
+  
   return (
     <>
       <Header>
         <UserInfo>
           <ProfileWapper>
-            {info?.profileUrl ? <ProfileImg src={info.profileUrl} /> : <FaUser />}
+            {ProfileUrl ? <ProfileImg src={ProfileUrl} /> : <FaUser />}
           </ProfileWapper>
           <div>{info?.nickName}</div>
         </UserInfo>
@@ -74,9 +78,11 @@ export default function Home() {
           </SortOptions>
         )}
       </Body>
-      <Modal isOpen={showMypage} onClose={() => setShowMypage(false)} title="마이페이지">
-        <MyPage/>
-      </Modal>
+      <ModalProvider onClose={() => setShowMypage(false)}>
+        <Modal isOpen={showMypage} title="마이페이지">
+          <MyPage />
+        </Modal>
+      </ModalProvider>
     </>
   );
 }

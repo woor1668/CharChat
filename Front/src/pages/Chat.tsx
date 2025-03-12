@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { Container } from "@styles/HomeStyles";
-import { Input } from "@styles/MyPageStyles";
+// import { Input } from "@styles/MyPageStyles";
 
 // Styled components for the chat interface
 const ChatContainer = styled(Container)`
@@ -97,7 +97,7 @@ const ChatFooter = styled.div`
   gap: 12px;
 `;
 
-const ChatInput = styled(Input)`
+const ChatInput = styled.input`
   flex: 1;
   padding: 12px 16px;
   border-radius: 24px;

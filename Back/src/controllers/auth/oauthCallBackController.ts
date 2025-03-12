@@ -46,7 +46,6 @@ export const naverCallBack = async (req: Request, res: Response): Promise<void> 
     });
   
     const profileData = profileResponse.data;
-    console.log('User Profile:', profileData);
     await oauthLogin(profileData, agent, res);
   } catch (error) {
     console.error('Error fetching access token:', error);
@@ -146,9 +145,6 @@ export const appleCallBack = async (req: Request, res: Response): Promise<void> 
     const clientId = env.NAVER_CLIENT_ID;
     const clientSecret = env.NAVER_CLIENT_SECRET;
     const redirectUri = 'http://localhost:5000/oauth/kakaoCallBack';
-  
-    console.log(code);
-    console.log(state);
   };
 
 /** 
@@ -157,15 +153,12 @@ export const appleCallBack = async (req: Request, res: Response): Promise<void> 
 const oauthLogin = async (profileData: any, agent: string, res: Response): Promise<void> => {
   try {
     const { email, name } = extractUserProfile(profileData, agent);
-    console.log(`email : ${email}`);
-    console.log(`name : ${name}`);
     // 기존 유저 조회
     let existingUser = await findUserByEmail(email, agent);
     if (!existingUser) {
       await createUser(name, email, agent);
       existingUser = await findUserByEmail(email, agent);
     }
-    console.log(`existingUser : ${existingUser}`);
     if (!existingUser) {
       res.status(400).json({ message: "오류가 발생하였습니다." });
       return;

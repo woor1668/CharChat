@@ -2,8 +2,7 @@ import styled from "styled-components";
 
 export const ModalOverlay = styled.div`
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
@@ -11,16 +10,17 @@ export const ModalOverlay = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  overflow-y: auto;
 `;
 
 export const ModalContainer = styled.div`
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 400px;
-  max-width: 90%;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  background: #fff;
+  width: 90%;
+  max-width: 600px;
+  max-height: 95vh;
+  overflow-y: auto;
+  padding: 10px;
+  border-radius: 8px;
+  box-sizing: border-box;
 `;
 
 export const ModalHeader = styled.div`
@@ -33,10 +33,13 @@ export const ModalHeader = styled.div`
 `;
 
 export const CloseButton = styled.button`
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  color: #444;
   background: none;
   border: none;
-  cursor: pointer;
+   &:hover{
+    background-color: transparent !important;
+   }
 `;
 
 export const ModalContent = styled.div`

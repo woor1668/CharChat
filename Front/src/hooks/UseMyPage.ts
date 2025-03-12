@@ -1,12 +1,14 @@
 import { checkApiKeyValidityForAi, SelectMyAPI, CreateMyAPI, toggleChange } from "@services/myPage/MyApiService";
 import { useState, useEffect, useCallback } from "react";
 import { usePopup } from "./UsePopup";
-import { SelectMyInfo, updateMyInfo } from "@services/myPage/MyInfoService";
+import { selectMyInfo, upsertMyProfile, updateMyInfo } from "@services/myPage/MyInfoService";
 import { usePasswordValidation } from "./UsePasswordValidation";
+import { supabase } from "@services/supabaseClient";
+import { useModalContext } from "@context/ModalContext";
 
 interface UserInfo {
   nickName: string;
-  profileUrl: string;
+  profile: string;
   bio: string;
   agent: string;
 }
@@ -14,10 +16,11 @@ interface UserInfo {
 const TOGGLE_LOCK_TIME = 30000;
 
 // MyInfo hooks
-export function useMyInfo() {
+export function useMyInfo(onClose?: () => void) {
   const [info, setInfo] = useState<UserInfo | null>(null);
   const [loading, setLoading] = useState(false);
   const [showPwInput, setShowPwInput] = useState(false);
+  const { closeModal } = useModalContext();
 
   const { showAlert } = usePopup();
 
@@ -25,13 +28,10 @@ export function useMyInfo() {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const data = await SelectMyInfo();
+      const data = await selectMyInfo();
       if (!data) return;
-
       setInfo(data.info);
       setShowPwInput(false);
-      setPassword('');
-      setRePassword('');
     } catch (error) {
       console.error(error);
     } finally {
@@ -45,14 +45,53 @@ export function useMyInfo() {
 
   const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
-    if (files && files.length === 1) {
-        const file = files[0];
-        if (file.size / (1024 * 1024) >= 1) {
-            return alert("파일 크기가 1MB 이상입니다. 다른 파일을 선택하세요.");
+    if (!files || files.length !== 1) return;
+    
+    const file = files[0];
+    if (file.size / (1024 * 1024) >= 1) {
+      alert("파일 크기가 1MB 이상입니다. 다른 파일을 선택하세요.");
+      return;
+    }
+    
+    setLoading(true);
+    try {
+      if (info?.profile) {
+        const { error: removeError } = await supabase
+          .storage
+          .from("profiles")
+          .remove([info.profile]);
+        if (removeError) {
+          console.error("기존 이미지 삭제 에러:", removeError);
+          showAlert({ message:"파일 업로드에 실패했습니다."});
+          return;
         }
-
       }
-  };
+  
+      const randomCode = Math.random().toString(36).substring(2, 8);
+      const fileName = `${Date.now()}-${randomCode}`;
+      
+      // 새로운 이미지 업로드
+      const { error: uploadError } = await supabase
+        .storage
+        .from("profiles")
+        .upload(fileName, file);
+      if (uploadError) {
+        console.error("파일 업로드 에러:", uploadError);
+        showAlert({ message:"파일 업로드에 실패했습니다."});
+        return;
+      }
+  
+      // DB에 파일명 업데이트 (UPSERT)
+      await upsertMyProfile(fileName);
+      setInfo(prev => prev ? { ...prev, profile: fileName } : prev);
+  
+      showAlert({ message: "이미지가 변경되었습니다." });
+    } catch (error) {
+      console.error("handleAvatarChange error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };  
 
   const {
     password, setPassword,
@@ -78,19 +117,23 @@ export function useMyInfo() {
     setLoading(true);
 
     try {
-      await updateMyInfo(showPwInput, password);
-      showAlert({ message: "저장되었습니다.", header: "성공" });
-      await fetchData();
+      if (!info || !info.nickName) {
+        return;
+      }
+      await updateMyInfo(showPwInput, password, info.nickName, info.bio);
+      await showAlert({ message: "저장되었습니다.", header: "성공" });
+      closeModal();
     } catch (error) {
-      showAlert({ message: "저장에 실패하였습니다.", header: "오류" });
+      await showAlert({ message: "저장에 실패하였습니다.", header: "오류" });
       console.error(error);
     } finally {
       setLoading(false);
     }
-  }, [loading, isValPw, isCfPw, showPwInput, password, fetchData, showAlert]);
+  }, [loading, isValPw, isCfPw, showPwInput, password, info, onClose, showAlert]);
 
   return {
-    info, isCfPw, isValPw, showPwInput,
+    info, setInfo,
+    isCfPw, isValPw, showPwInput,
     password, setPassword,
     showPassword, setShowPassword,
     rePassword, setRePassword,

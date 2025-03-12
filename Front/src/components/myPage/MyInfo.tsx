@@ -1,23 +1,23 @@
-import { ApiWrapper, InfoItem, InfoButton, ButtonDiv, 
-        AvatarWapper, AvatarUpload, AvatarInput, AvatarImg,
-        InfoInput,
-        InfoTextArea, 
-       } 
-from "@styles/MyPageStyles";
+import { ApiWrapper, ButtonDiv, AvatarWapper, AvatarUpload, AvatarInput,
+          InfoInput, InfoTextArea, InfoItem, InfoButton, 
+        } 
+  from "@styles/MyPageStyles";
 import { useMyInfo } from "@hooks/UseMyPage";
 import PasswordInput, { PasswordForm } from "../common/Password";
 import { FaUser } from "react-icons/fa";
-import { ProfileWapper } from "@styles/ProfileStlyes";
+import { ProfileImg, ProfileWapper } from "@styles/ProfileStlyes";
+import { getPublicProfileUrl } from "@services/supabaseClient";
 
 export default function MyInfo() {
-  const { info, isCfPw, isValPw, showPwInput,
+  const { info, setInfo,
+          isCfPw, isValPw, showPwInput,
           password, setPassword, showPassword, setShowPassword,
           rePassword, setRePassword, showRePassword, setShowRePassword,
           handleAvatarChange, handlePasswordChange, handleSave
         } = useMyInfo() ?? {};
 
   if (!info) {
-    return <ApiWrapper>정보를 불러올 수 없습니다.</ApiWrapper>; // ✅ 데이터가 없는 경우
+    return <ApiWrapper>정보를 불러올 수 없습니다.</ApiWrapper>;
   }
   
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -26,32 +26,40 @@ export default function MyInfo() {
     }
   };
 
+  const ProfileUrl = getPublicProfileUrl(info.profile);
+  
   return (
     <ApiWrapper>
       <AvatarWapper>
-          <AvatarUpload htmlFor="avatar" title="이미지 올리기">
-            <ProfileWapper>
-              {info.profileUrl ? <AvatarImg src={info.profileUrl} /> : <FaUser />}
-            </ProfileWapper>
-          </AvatarUpload>
-          <AvatarInput onChange={handleAvatarChange} id="avatar" type="file" accept="image/*" />
+        <AvatarUpload htmlFor="avatar" title="이미지 올리기">
+          <ProfileWapper>
+            {ProfileUrl ? <ProfileImg src={ProfileUrl} /> : <FaUser />}
+          </ProfileWapper>
+        </AvatarUpload>
+        <AvatarInput onChange={handleAvatarChange} id="avatar" type="file" accept="image/*" />
       </AvatarWapper>
       <div><strong>닉네임</strong></div> 
       <InfoItem onKeyDown={handleKeyDown}>
-          <InfoInput 
-            type="text" 
-            value={info.nickName}
-            required
-            maxLength={10}
-          />
+        <InfoInput 
+          type="text" 
+          value={info.nickName}
+          onChange={(e) =>
+            setInfo((prev) => (prev ? { ...prev, nickName: e.target.value } : prev))
+          }
+          required
+          maxLength={10}
+        />
       </InfoItem>
       <div><strong>자기소개</strong></div> 
       <InfoItem>
-          <InfoTextArea 
-            value={info.bio}
-            required
-            maxLength={100}
-          />
+        <InfoTextArea 
+          value={info.bio}
+          onChange={(e) =>
+            setInfo((prev) => (prev ? { ...prev, bio: e.target.value } : prev))
+          }
+          required
+          maxLength={100}
+        />
       </InfoItem>
       {showPwInput ? (
         <>
@@ -61,7 +69,7 @@ export default function MyInfo() {
               password={password ?? ""} 
               setPassword={setPassword ?? (() => {})} 
               showPassword={showPassword ?? false} 
-              setShowPassword={setShowPassword?? (() => {})} 
+              setShowPassword={setShowPassword ?? (() => {})} 
               placeholder="비밀번호"
             />
           </InfoItem>
@@ -72,19 +80,21 @@ export default function MyInfo() {
               showPassword={showRePassword ?? false} 
               setShowPassword={setShowRePassword ?? (() => {})} 
               placeholder="비밀번호 확인"
-              />
+            />
           </InfoItem>
           <PasswordForm
-            password= {password}
-            isValPw = {isValPw}
-            isCfPw = {isCfPw}
+            password={password}
+            isValPw={isValPw}
+            isCfPw={isCfPw}
           />
         </>
-      ) : (
-        false
-      )}
+      ) : null}
       <ButtonDiv>
-        <InfoButton onClick={handlePasswordChange}>{showPwInput ? '취소' : '비밀번호 변경'}</InfoButton>
+        {info.agent === 'local' &&
+          <InfoButton onClick={handlePasswordChange}>
+            {showPwInput ? '취소' : '비밀번호 변경'}
+          </InfoButton>
+        }
         <InfoButton onClick={handleSave}>저장</InfoButton>
       </ButtonDiv>
     </ApiWrapper>

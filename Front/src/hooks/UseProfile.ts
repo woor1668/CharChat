@@ -3,7 +3,7 @@ import { SelectUserInfo } from "@services/UserInfoService";
 
 interface UserInfo {
     nickName: string;
-    profileUrl: string;
+    profile: string;
     bio: string;
 }
 
