@@ -6,7 +6,8 @@ import OAuthResult from "@pages/auth/OAuthResult";
 import Home from '@pages/Home';
 import Profile from '@pages/Profile';
 import MyPage from '@pages/MyPage';
-import Chat from "./pages/Chat";
+import Main from "@pages/Main";
+import Chat from "@pages/Chat";
 import { getAuth } from "@services/AuthService";
 import { PopupProvider } from "@components/common/Popup";
 import { ReactNode, useEffect, useState } from "react";
@@ -43,7 +44,7 @@ const router = createBrowserRouter([
     ),
     children: [
       // { path:"/notice/:id", element:<Notice />},
-      { path: "", element: <Chat /> },
+      { path: "", element: <Main /> },
       { path: "my", element: <MyPage /> },
       { path: "/profile", element: <Profile />},
     ],
