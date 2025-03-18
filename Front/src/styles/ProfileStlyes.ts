@@ -17,7 +17,7 @@ export const UserInfo = styled.div`
   align-items: center;
 `;
 
-export const ProfileWapper = styled.div`
+export const ProfileWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,12 +39,20 @@ export const ProfileImg = styled.img`
 export const Button = styled.button`
   padding: 10px 20px;
   font-size: 15px;
+  border-radius: 5px;
 `;
+
+export const BioWrapper = styled.div`
+  width: 100%;
+  padding: 10px 20px;
+  /* margin-bottom: 10px; */
+  border: 1px solid #ddd;
+  text-align: left;
+`
 
 export const Body = styled.div`
   position: relative;
   padding: 20px;
-  background-color: #fafafa;
   width: 100%;
   min-height: calc(100vh - 140px);
 `;

@@ -1,7 +1,7 @@
 import { checkApiKeyValidityForAi, SelectMyAPI, CreateMyAPI, toggleChange } from "@services/myPage/MyApiService";
 import { useState, useEffect, useCallback } from "react";
 import { usePopup } from "./UsePopup";
-import { selectMyInfo, upsertMyProfile, updateMyInfo } from "@services/myPage/MyInfoService";
+import { selectMyInfo, upsertMyProfile, updateMyInfo, deleteMyProfile } from "@services/myPage/MyInfoService";
 import { usePasswordValidation } from "./UsePasswordValidation";
 import { supabase } from "@services/supabaseClient";
 import { useModalContext } from "@context/ModalContext";
@@ -16,7 +16,7 @@ interface UserInfo {
 const TOGGLE_LOCK_TIME = 30000;
 
 // MyInfo hooks
-export function useMyInfo(onClose?: () => void) {
+export function useMyInfo() {
   const [info, setInfo] = useState<UserInfo | null>(null);
   const [loading, setLoading] = useState(false);
   const [showPwInput, setShowPwInput] = useState(false);
@@ -93,6 +93,30 @@ export function useMyInfo(onClose?: () => void) {
     }
   };  
 
+  const handleDeleteImg = async () => {
+    setLoading(true);
+    try {
+      if (info?.profile) {
+        const { error: removeError } = await supabase
+          .storage
+          .from("profiles")
+          .remove([info.profile]);
+        if (removeError) {
+          console.error("기존 이미지 삭제 에러:", removeError);
+          showAlert({ message:"파일 업로드에 실패했습니다."});
+          return;
+        }
+      }
+      await deleteMyProfile();
+      setInfo(prev => prev ? { ...prev, profile: '' } : prev);
+      showAlert({ message: "이미지가 삭제하였습니다." });
+    } catch (error) {
+      console.error("handleAvatarChange error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const {
     password, setPassword,
     showPassword, setShowPassword,
@@ -129,7 +153,7 @@ export function useMyInfo(onClose?: () => void) {
     } finally {
       setLoading(false);
     }
-  }, [loading, isValPw, isCfPw, showPwInput, password, info, onClose, showAlert]);
+  }, [loading, isValPw, isCfPw, showPwInput, password, info, showAlert, closeModal]);
 
   return {
     info, setInfo,
@@ -138,7 +162,7 @@ export function useMyInfo(onClose?: () => void) {
     showPassword, setShowPassword,
     rePassword, setRePassword,
     showRePassword, setShowRePassword,
-    handleAvatarChange, handlePasswordChange, handleSave,
+    handleAvatarChange, handlePasswordChange, handleSave, handleDeleteImg
   };
 }
 

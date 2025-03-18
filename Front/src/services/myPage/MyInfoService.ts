@@ -22,9 +22,19 @@ export const selectMyInfo = async () => {
 
 export const upsertMyProfile = async (profile: string) => {
   try {
-    console.log(profile);
     const response = await api.post<InfoResponse>("/myInfo/upsertMyProfile", {
       profile
+    });
+    return response.data;
+  } catch (error) {
+    console.error("create Error:", error);
+    throw error;
+  }
+};
+
+export const deleteMyProfile = async () => {
+  try {
+    const response = await api.post<InfoResponse>("/myInfo/deleteMyProfile", {
     });
     return response.data;
   } catch (error) {

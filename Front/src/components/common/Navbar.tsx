@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import { logoutUser } from "@services/AuthService";
 import { MenuToggle, Nav, NavItem, NavList, ProfileIcon, StyledLink } from "@styles/common/NavBarStyles";
 
-const Navbar: React.FC = () => {
+export default function Navbar() {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -43,5 +43,3 @@ const Navbar: React.FC = () => {
     </Nav>
   );
 };
-
-export default Navbar;

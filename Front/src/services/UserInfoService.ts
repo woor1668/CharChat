@@ -7,12 +7,13 @@ interface InfoResponse {
       profile: string;
       bio: string;
     }
+    isOwner: boolean;
 }
 
-export const SelectUserInfo = async (uuid: string) => {
+export const SelectUserInfo = async (seachUuid: string) => {
   try {
     const response = await api.post<InfoResponse>("/userInfo/selectInfo", {
-      uuid
+      seachUuid
     });
     return response.data;
   } catch (error) {

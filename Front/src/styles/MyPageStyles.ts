@@ -36,7 +36,7 @@ export const Content = styled.div<{ maxHeight: string }>`
 `;
 
 // 컨텐츠 부분 //
-export const ApiWrapper = styled.div`
+export const ApiContainer = styled.div`
     display: grid;
     padding: 10px;
     gap: 10px;
@@ -60,7 +60,7 @@ export const InputWrapper = styled.div`
 `;
 
 // MyInfo
-export const AvatarWapper = styled.div`
+export const AvatarWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -75,6 +75,16 @@ export const AvatarUpload = styled.label`
 export const AvatarInput = styled.input`
     display: none;
 `;
+
+export const ButtonWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+`
+
+export const ImgButton = styled.button`
+    font-size: 0.7rem;
+    width: 80px;
+`
 
 export const InfoItem = styled.div`
     border-radius: 5px;

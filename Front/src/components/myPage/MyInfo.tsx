@@ -1,11 +1,11 @@
-import { ApiWrapper, ButtonDiv, AvatarWapper, AvatarUpload, AvatarInput,
-          InfoInput, InfoTextArea, InfoItem, InfoButton, 
-        } 
+import { ApiContainer, ButtonDiv, AvatarWrapper, AvatarUpload, AvatarInput,
+          InfoInput, InfoTextArea, InfoItem, InfoButton, ImgButton,
+          ButtonWrapper, } 
   from "@styles/MyPageStyles";
 import { useMyInfo } from "@hooks/UseMyPage";
 import PasswordInput, { PasswordForm } from "../common/Password";
 import { FaUser } from "react-icons/fa";
-import { ProfileImg, ProfileWapper } from "@styles/ProfileStlyes";
+import { ProfileImg, ProfileWrapper } from "@styles/ProfileStlyes";
 import { getPublicProfileUrl } from "@services/supabaseClient";
 
 export default function MyInfo() {
@@ -13,11 +13,11 @@ export default function MyInfo() {
           isCfPw, isValPw, showPwInput,
           password, setPassword, showPassword, setShowPassword,
           rePassword, setRePassword, showRePassword, setShowRePassword,
-          handleAvatarChange, handlePasswordChange, handleSave
+          handleAvatarChange, handlePasswordChange, handleSave, handleDeleteImg
         } = useMyInfo() ?? {};
 
   if (!info) {
-    return <ApiWrapper>정보를 불러올 수 없습니다.</ApiWrapper>;
+    return <ApiContainer>정보를 불러올 수 없습니다.</ApiContainer>;
   }
   
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -29,15 +29,20 @@ export default function MyInfo() {
   const ProfileUrl = getPublicProfileUrl(info.profile);
   
   return (
-    <ApiWrapper>
-      <AvatarWapper>
+    <ApiContainer>
+      <AvatarWrapper>
         <AvatarUpload htmlFor="avatar" title="이미지 올리기">
-          <ProfileWapper>
+          <ProfileWrapper style={{margin: 0}}>
             {ProfileUrl ? <ProfileImg src={ProfileUrl} /> : <FaUser />}
-          </ProfileWapper>
+          </ProfileWrapper>
         </AvatarUpload>
         <AvatarInput onChange={handleAvatarChange} id="avatar" type="file" accept="image/*" />
-      </AvatarWapper>
+      </AvatarWrapper>
+      {ProfileUrl && 
+      <ButtonWrapper>
+        <ImgButton onClick={handleDeleteImg}>삭제</ImgButton>
+      </ButtonWrapper>
+      }
       <div><strong>닉네임</strong></div> 
       <InfoItem onKeyDown={handleKeyDown}>
         <InfoInput 
@@ -97,6 +102,6 @@ export default function MyInfo() {
         }
         <InfoButton onClick={handleSave}>저장</InfoButton>
       </ButtonDiv>
-    </ApiWrapper>
+    </ApiContainer>
   );
 }

@@ -1,4 +1,3 @@
-import { Response } from 'express';
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { registerUser, loginUser } from '@services/AuthService';

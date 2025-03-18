@@ -1,4 +1,4 @@
-import { ApiWrapper, H, P, HeaderRow, InputWrapper, ToggleBall, ToggleSwitch, ApiButton, ApiInput } from "@styles/MyPageStyles";
+import { ApiContainer, H, P, HeaderRow, InputWrapper, ToggleBall, ToggleSwitch, ApiButton, ApiInput } from "@styles/MyPageStyles";
 import { useMyApi } from "@hooks/UseMyPage";
 
 interface MyApiProps {
@@ -18,7 +18,7 @@ export default function MyApi({ title, activeApi, setActiveApi }: MyApiProps) {
   };
 
   return (
-    <ApiWrapper>
+    <ApiContainer>
       <HeaderRow>
         <H>{title}</H>
         <ToggleSwitch active={isActive} onClick={handleToggle} disabled={!apiKey || !isValid || isDisabled}>
@@ -36,6 +36,6 @@ export default function MyApi({ title, activeApi, setActiveApi }: MyApiProps) {
         <ApiButton onClick={handleSave}>Save API</ApiButton>
       </InputWrapper>
       {err && <P style={{ color: "red" }}>{err}</P>}
-    </ApiWrapper>
+    </ApiContainer>
   );
 }

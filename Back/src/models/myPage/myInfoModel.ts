@@ -40,6 +40,15 @@ export const upsertProfile = async (uuid: string, profile: string): Promise<void
     conn.release();
   }
 };
+
+export const deleteProfile = async (uuid: string): Promise<void> => {
+  const conn = await pool.getConnection();
+  try {
+    await conn.query('UPDATE TB_USER_PROFILES SET profile = null WHERE UUID = ?', [uuid]);
+  } finally {
+    conn.release();
+  }
+};
   
 export const updateInfo = async (uuid: string, isPw: boolean, pw: string, nickName: string, bio: string): Promise<void> => {
     const conn = await pool.getConnection();
