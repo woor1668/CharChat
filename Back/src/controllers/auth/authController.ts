@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import env from "@config/config";
-import { findUserByEmail, createUser, loginUser, authUser } from "@models/auth/authModel";
+import { findUserByEmail, createUser, loginUser, authUser, findUserByNickName } from "@models/auth/authModel";
 
 const JWT_SECRET = env.JWT_SECRET || "default_secret";
 
@@ -9,13 +9,19 @@ export const register = async (req: Request, res: Response): Promise<void> => {
   try {
     const { name, email, nickName, pw, agent } = req.body;   
 
-    const existingUser = await findUserByEmail(email);
-    if (existingUser) {
-      res.status(400).json({ message: "이미 가입된 이메일입니다." });
+    const isEmail = await findUserByEmail(email);
+    if (isEmail) {
+      res.status(400).json({ message: "사용 중인 이메일입니다." });
       return;
     }
 
-    await createUser(name, email, agent, nickName, pw);
+    const isNickName = await findUserByNickName(nickName);
+    if (isNickName) {
+      res.status(400).json({ message: "사용 중인 닉네임입니다." });
+      return;
+    }
+
+    await createUser(name, email, nickName, agent, pw);
 
     res.status(201).json({ message: "회원가입 성공" });
   } catch (error) {

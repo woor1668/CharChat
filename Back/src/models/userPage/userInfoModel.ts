@@ -1,6 +1,7 @@
 import pool from "@config/db";
 
 export interface info {
+    uuid: string;
     nickName: string;
     profile: string;
     bio: string;
@@ -10,6 +11,7 @@ export const selectInfo = async (uuid: string): Promise<info | null> => {
     const conn = await pool.getConnection();
     const rows = await conn.query(
         `SELECT 
+            u.uuid,
             u.NICK_NAME as nickName, 
             p.profile,
             p.bio 

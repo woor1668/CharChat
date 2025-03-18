@@ -56,10 +56,17 @@ export const BodyHeader = styled.div`
   border-bottom: 1px solid #ddd;
 `;
 
-export const HeaderLeft = styled.div`
+const BodyHeaderLine = styled.div`
   display: flex;
   flex-direction: column;
+`
+
+export const HeaderLeft = styled(BodyHeaderLine)``;
+
+export const HeaderRight = styled(BodyHeaderLine)`
+  align-items: center;
 `;
+
 
 export const Title = styled.h2`
   margin: 0;
@@ -71,11 +78,6 @@ export const Total = styled.p`
   margin: 5px 0 0;
   font-size: 1em;
   color: #666;
-`;
-
-export const HeaderRight = styled.div`
-  display: flex;
-  align-items: center;
 `;
 
 export const Sorting = styled.p<{ showSortOptions: boolean }>`

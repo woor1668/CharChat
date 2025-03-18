@@ -1,57 +1,103 @@
 import { InputWrapper, Input, Button, Form, IconWrapper, Container, StyledLink, MyWrapper } from "@styles/AuthStyles";
-import { FaUser, FaEnvelope, FaIdCard  } from "react-icons/fa";
-import { useRegisterForm } from "@hooks/UseAuthForm";
+import { FaUser, FaEnvelope, FaIdCard } from "react-icons/fa";
+import { useRegisterForm, useOAuthData } from "@hooks/UseAuthForm";
 import PasswordInput, { PasswordForm } from "@components/common/Password";
 
 export default function Register() {
-  const { name, setName, email, setEmail, nickName, setNickName,
-          password, setPassword, showPassword, setShowPassword,
-          rePassword, setRePassword, showRePassword, setShowRePassword,
-          isValPw, isCfPw, handleSubmit 
-        } = useRegisterForm();
+  const {
+    name, setName, email, setEmail, nickName, setNickName, agent, setAgent,
+    password, setPassword, showPassword, setShowPassword,
+    rePassword, setRePassword, showRePassword, setShowRePassword,
+    isValPw, isCfPw, handleSubmit
+  } = useRegisterForm();
+  
+  useOAuthData(setEmail, setName, setAgent);
 
   return (
     <MyWrapper>
       <Container>
         <h2>회원가입</h2>
         <Form onSubmit={handleSubmit}>
-          <InputWrapper>
+          <InputWrapper 
+            style={{
+              backgroundColor: agent ? "#f0f0f0" : "white",
+            }}
+          >
             <IconWrapper><FaUser /></IconWrapper>
-            <Input type="text" placeholder="이름" value={name} onChange={(e) => setName(e.target.value)} required />
+            <Input 
+              type="text" 
+              placeholder="이름" 
+              value={name} 
+              readOnly={!!agent} 
+              onChange={(e) => setName(e.target.value)} 
+              style={{
+                backgroundColor: agent ? "#f0f0f0" : "white",
+              }}
+              required 
+            />
           </InputWrapper>
 
-          <InputWrapper>
+          <InputWrapper
+            style={{
+              backgroundColor: agent ? "#f0f0f0" : "white",
+            }}
+          >
             <IconWrapper><FaEnvelope /></IconWrapper>
-            <Input type="email" placeholder="이메일" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <Input 
+              type="email" 
+              placeholder="이메일" 
+              value={email} 
+              readOnly={!!agent} 
+              onChange={(e) => setEmail(e.target.value)} 
+              required 
+              style={{
+                backgroundColor: agent ? "#f0f0f0" : "white",
+              }}
+            />
           </InputWrapper>
-          
+
           <InputWrapper>
             <IconWrapper><FaIdCard /></IconWrapper>
-            <Input type="nickname" placeholder="닉네임" value={nickName} onChange={(e) => setNickName(e.target.value)} required maxLength={10}/>
+            <Input 
+              type="text" 
+              placeholder="닉네임 (1~12자리)" 
+              value={nickName} 
+              onChange={(e) => setNickName(e.target.value)} 
+              required 
+              maxLength={12} 
+            />
           </InputWrapper>
-          
-          <PasswordInput 
-            password={password} 
-            setPassword={setPassword} 
-            showPassword={showPassword} 
-            setShowPassword={setShowPassword} 
-            placeholder="비밀번호"
-          />
 
-          <PasswordInput 
-            password={rePassword} 
-            setPassword={setRePassword} 
-            showPassword={showRePassword} 
-            setShowPassword={setShowRePassword} 
-            placeholder="비밀번호 확인"
-          />
+          {!agent && (
+            <>
+              <PasswordInput 
+                password={password} 
+                setPassword={setPassword} 
+                showPassword={showPassword} 
+                setShowPassword={setShowPassword} 
+                placeholder="비밀번호"
+              />
+              <PasswordInput 
+                password={rePassword} 
+                setPassword={setRePassword} 
+                showPassword={showRePassword} 
+                setShowPassword={setShowRePassword} 
+                placeholder="비밀번호 확인"
+              />
+            </>
+          )}
+
           <Button type="submit">회원가입</Button>
         </Form>
-        <PasswordForm
-          password= {password}
-          isValPw = {isValPw}
-          isCfPw = {isCfPw}
-        />
+
+        {!agent && (
+          <PasswordForm
+            password={password}
+            isValPw={isValPw}
+            isCfPw={isCfPw}
+          />
+        )}
+
         <p>
           계정이 있으신가요? <StyledLink to="/login">로그인</StyledLink>
         </p>

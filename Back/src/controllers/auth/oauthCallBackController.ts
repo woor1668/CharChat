@@ -154,15 +154,16 @@ const oauthLogin = async (profileData: any, agent: string, res: Response): Promi
   try {
     const { email, name } = extractUserProfile(profileData, agent);
     // 기존 유저 조회
-    let existingUser = await findUserByEmail(email, agent);
+    let existingUser = await findUserByEmail(email);
     if (!existingUser) {
-      await createUser(name, email, agent);
-      existingUser = await findUserByEmail(email, agent);
-    }
-    if (!existingUser) {
-      res.status(400).json({ message: "오류가 발생하였습니다." });
+      res.cookie('regiData', JSON.stringify({ email, name, agent }), {
+        secure: true,
+        sameSite: 'strict'
+      });
+      res.redirect(env.FRONTEND_URL + '/register?status=success');
       return;
     }
+    
     const uuid = existingUser.uuid;
     const token = jwt.sign({ uuid: uuid }, JWT_SECRET, { expiresIn: "1h" });
     await authUser(uuid, token);

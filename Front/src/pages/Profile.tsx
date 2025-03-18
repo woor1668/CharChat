@@ -1,48 +1,21 @@
 import Modal from "@components/common/Modal";
 import MyPage from "./MyPage";
-import { useState, useRef, useEffect, useCallback } from "react";
 import { useUserInfo } from "@hooks/UseProfile";
 import { 
   Body, BodyHeader, Button, Header, ProfileImg, ProfileWapper, Total, UserInfo, 
   Sorting, SortOptions, SortButton, HeaderLeft, Title, HeaderRight 
 } from "@styles/ProfileStlyes";
 import { FaUser } from "react-icons/fa";
-import { getPublicProfileUrl } from "@services/supabaseClient";
 import { ModalProvider } from "@context/ModalContext";
 
 export default function Home() {
-  const { info } = useUserInfo() ?? {};
-  const [sortOption, setSortOption] = useState("popular");
-  const [showSortOptions, setShowSortOptions] = useState(false);
-  const [showMypage, setShowMypage] = useState(false);
-  const sortRef = useRef<HTMLDivElement | null>(null);
+  const {
+    info, ProfileUrl, 
+    sortOption, showSortOptions, sortRef,
+    handleSortClick, handleSortOptionChange,
+    showMypage, setShowMypage,
+  } = useUserInfo();
 
-  // ✅ useCallback으로 리렌더링 최적화
-  const handleSortClick = useCallback((event: React.MouseEvent) => {
-    event.stopPropagation();
-    setShowSortOptions((prev) => !prev);
-  }, []);
-
-  const handleSortOptionChange = useCallback((option: string) => {
-    setSortOption(option);
-    setShowSortOptions(false);
-  }, []);
-
-  useEffect(() => {
-    if (!showSortOptions) return;
-
-    const handleClickOutside = (event: MouseEvent) => {
-      if (sortRef.current && !sortRef.current.contains(event.target as Node)) {
-        setShowSortOptions(false);
-      }
-    };
-
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, [showSortOptions]);
-
-  const ProfileUrl = getPublicProfileUrl(info?.profile ?? null);
-  
   return (
     <>
       <Header>
@@ -62,10 +35,8 @@ export default function Home() {
             <Total>총 0개</Total>
           </HeaderLeft>
           <HeaderRight>
-            <Sorting 
-              onClick={handleSortClick} 
-              showSortOptions={showSortOptions}
-            >
+            <Button>캐릭터 생성</Button>
+            <Sorting onClick={handleSortClick} showSortOptions={showSortOptions}>
               정렬 : {sortOption === "popular" ? "인기순" : sortOption === "newest" ? "최신순" : "오래된순"}
             </Sorting>
           </HeaderRight>

@@ -4,14 +4,14 @@ interface AuthResponse {
 }
 
 // 회원가입 API
-export const registerUser = async (name: string, email: string, nickName: string, pw: string) => {
+export const registerUser = async (name: string, email: string, nickName: string, pw: string, agent: string) => {
   try {
     const response = await api.post<AuthResponse>("/auth/register", {
       name,
       email,
       nickName,
       pw,
-      agent : 'local'
+      agent
     });
     return response.data;
   } catch (error) {
