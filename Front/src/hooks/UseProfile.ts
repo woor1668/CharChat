@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { SelectUserInfo } from "@services/UserInfoService";
 import { getPublicProfileUrl } from "@services/supabaseClient";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface UserInfo {
   nickName: string;
@@ -17,6 +17,7 @@ export function useUserInfo() {
   const [showMypage, setShowMypage] = useState(false);
   const sortRef = useRef<HTMLDivElement | null>(null);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const fetchData = useCallback(async () => {
     try {
@@ -69,6 +70,10 @@ export function useUserInfo() {
 
   const ProfileUrl = getPublicProfileUrl(info?.profile ?? null);
 
+  const handleCreateCharacter = () => {
+    navigate("/character/create");
+  };
+
   return {
     info,
     isOwner,
@@ -78,6 +83,7 @@ export function useUserInfo() {
     sortRef,
     handleSortClick,
     handleSortOptionChange,
+    handleCreateCharacter,
     showMypage,
     setShowMypage,
   };

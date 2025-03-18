@@ -12,7 +12,7 @@ export default function Home() {
   const {
     info, isOwner, ProfileUrl, 
     sortOption, showSortOptions, sortRef,
-    handleSortClick, handleSortOptionChange,
+    handleSortClick, handleSortOptionChange, handleCreateCharacter,
     showMypage, setShowMypage,
   } = useUserInfo();
 
@@ -35,7 +35,7 @@ export default function Home() {
             <Total>총 0개</Total>
           </HeaderLeft>
           <HeaderRight>
-            {isOwner && <Button>캐릭터 생성</Button>}
+            {isOwner && <Button onClick={handleCreateCharacter}>캐릭터 생성</Button>}
             <Sorting onClick={handleSortClick} showSortOptions={showSortOptions}>
               정렬 : {sortOption === "popular" ? "인기순" : sortOption === "newest" ? "최신순" : "오래된순"}
             </Sorting>
