@@ -1,35 +1,40 @@
-import { RequiredMark, StepIcon, StepItem, StepLabel, StepNavContainer } from "@styles/character/create/CharacterNaviStyles";
+import { RequiredMark, StepIcon, StepItem as StepItemStyled, StepLabel, StepNavContainer } from "@styles/character/create/CharacterNaviStyles";
 
 interface StepItem {
-  id: string;
   label: string;
-  isActive: boolean;
-  isCompleted: boolean;
-  isRequired?: boolean;
+  path: string;
+  isRequired: boolean;
 }
 
+interface CharacterNaviProps {
+  steps: StepItem[];
+  currentStepIndex: number;
+  onStepChange: (stepIndex: number) => void;
+}
 
-export default function CharacterNavi() {
-  const steps: StepItem[] = [
-    { id: 'profile', label: '프로필', isActive: true, isCompleted: false, isRequired: true },
-    { id: 'details', label: '상세 설정', isActive: false, isCompleted: false, isRequired: true },
-    { id: 'services', label: '시작 설정', isActive: false, isCompleted: false, isRequired: true },
-    { id: 'media', label: '미디어', isActive: false, isCompleted: false },
-    { id: 'guidebook', label: '가이드북', isActive: false, isCompleted: false },
-    { id: 'registration', label: '등록', isActive: false, isCompleted: false, isRequired: true },
-  ];
-
+export default function CharacterNavi({ steps, currentStepIndex, onStepChange }: CharacterNaviProps) {
+  console.log(steps);
   return (
     <StepNavContainer>
-      {steps.map((step) => (
-        <StepItem key={step.id} isActive={step.isActive}>
-          <StepIcon isActive={step.isActive} isCompleted={step.isCompleted}>
-            {step.isCompleted ? '✓' : ''}
+      {steps.map((step, index) => (
+        <StepItemStyled 
+          isActive={index === currentStepIndex}
+          onClick={() => onStepChange(index)}
+        >
+          <StepIcon 
+            isActive={index === currentStepIndex} 
+            isCompleted={index < currentStepIndex}
+          >
+            {index < currentStepIndex ? '✓' : ''}
           </StepIcon>
-          <StepLabel isActive={step.isActive}>{step.label}</StepLabel>
-          {step.isRequired && <RequiredMark>*</RequiredMark>}
-        </StepItem>
+
+          <StepLabel isActive={index === currentStepIndex}>
+            {step.label}
+            {step.isRequired && <RequiredMark>*</RequiredMark>}
+          </StepLabel>
+          
+        </StepItemStyled>
       ))}
     </StepNavContainer>
   );
-};
+}

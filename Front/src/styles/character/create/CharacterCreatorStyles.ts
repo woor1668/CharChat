@@ -26,7 +26,7 @@ export const HeaderRight = styled.div`
   align-items: center;
 `;
 
-export const BackButton = styled.button`
+export const BackButton = styled.div`
   background: none;
   border: none;
   font-size: 18px;
@@ -38,10 +38,8 @@ export const BackButton = styled.button`
 `;
 
 export const PageTitle = styled.h1`
-  font-size: 16px;
+  font-size: 20px;
   margin-left: 8px;
-  font-weight: 500;
-  color: #333;
 `;
 
 export const SaveButton = styled.button`
@@ -68,7 +66,7 @@ export const ContentArea = styled.div`
 `;
 
 export const MainContent = styled.main`
-  flex: 3;
+  flex: 2;
   border-right: 1px solid #f0f0f0;
   padding: 20px;
   overflow-y: auto;
@@ -81,6 +79,4 @@ export const PreviewSidebar = styled.aside`
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 260px;
-  max-width: 320px;
 `;

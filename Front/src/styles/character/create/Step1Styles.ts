@@ -1,23 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const FormContainer = styled.div`
   width: 100%;
-`;
-
-export const FormTitle = styled.h2`
-  font-size: 14px;
-  margin-bottom: 8px;
-`;
-
-export const RandomizeButton = styled.button`
-  background-color: #4e93e2;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 16px;
-  cursor: pointer;
-  font-size: 14px;
-  margin-bottom: 20px;
 `;
 
 export const InfoText = styled.p`
@@ -42,19 +26,17 @@ export const SectionLabel = styled.label`
   margin-bottom: 8px;
 `;
 
-export const RequiredField = styled.span`
-  color: red;
-`;
-
 export const SectionDescription = styled.p`
   font-size: 12px;
   color: #666;
+  margin-top: 3px;
   margin-bottom: 4px;
 `;
 
 export const SectionNote = styled.p`
   font-size: 12px;
   color: #888;
+  margin-top: 8px;
   margin-bottom: 12px;
 `;
 
@@ -104,51 +86,20 @@ export const SmileIcon = styled.div`
   }
 `;
 
-export const ImageUploadButtons = styled.div`
+export const ImageUploadWarpper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
 `;
 
 export const ImageUploadButton = styled.button`
-  background: none;
-  border: 1px solid #ddd;
   border-radius: 4px;
   padding: 8px 16px;
-  margin-bottom: 8px;
-  cursor: pointer;
   font-size: 14px;
 `;
 
-export const ImageGenerateButton = styled.button`
-  background-color: #000;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 16px;
-  cursor: pointer;
-  font-size: 14px;
-`;
 
-export const MiniStudioLink = styled.a`
-  display: flex;
-  align-items: center;
-  padding: 8px 12px;
-  border-radius: 4px;
-  background-color: #f0f8ff;
-  font-size: 12px;
-  color: #4e93e2;
-  text-decoration: none;
-  cursor: pointer;
-  width: fit-content;
-`;
-
-export const MiniStudioIcon = styled.span`
-  font-size: 16px;
-  margin-right: 6px;
-`;
-
-export const NameInput = styled.input`
+const InputStyles = css`
   width: 100%;
   padding: 12px;
   border: 1px solid #ddd;
@@ -158,12 +109,30 @@ export const NameInput = styled.input`
   &::placeholder {
     color: #aaa;
   }
+`
+export const NameInput = styled.input`
+  ${InputStyles}
 `;
 
-export const ButtonsContainer = styled.div`
+export const SummaryInput = styled.textarea`
+  ${InputStyles}
+  height: 100px;
+`;
+
+export const InputCountWarpper = styled.div`
   display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+  justify-content: end;
+  width: 100%;
+  margin-top: 5px;
+`;
+
+export const InputCount = styled.div`
+  font-size: 12px;
+  color: #aaa;
+`;
+
+export const Select = styled.select`
+  ${InputStyles}
 `;
 
 export const CancelButton = styled.button`
@@ -175,16 +144,4 @@ export const CancelButton = styled.button`
   cursor: pointer;
   font-weight: 500;
   margin-right: 10px;
-`;
-
-export const NextButton = styled.button`
-  background-color: #000;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 24px;
-  cursor: pointer;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
 `;

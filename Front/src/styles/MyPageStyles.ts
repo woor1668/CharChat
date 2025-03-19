@@ -93,7 +93,7 @@ export const InfoItem = styled.div`
 export const InfoInput = styled.input`
     border: 1px solid #ddd;
     border-radius: 5px;
-    width: calc(100% - 10px);
+    width: 100%;
     font-size: 1.2em;
     padding: 5px;
 `;
@@ -101,11 +101,10 @@ export const InfoInput = styled.input`
 export const InfoTextArea = styled.textarea`
     border: 1px solid #ddd;
     border-radius: 5px;
-    width: calc(100% - 10px);
+    width: 100% - 10px;
     font-size: 1.1em;
     padding: 5px;
     height: 100px;
-    resize: none;
 `;
 
 export const ButtonDiv = styled.div`
