@@ -1,4 +1,4 @@
-import { ButtonsContainer, NextButton, PrevButton } from "@styles/character/create/CharacterFooterStyles";
+import { ButtonsContainer, FooterContainer, NextButton, PrevButton } from "@styles/character/create/CharacterFooterStyles";
 
 interface CharacterFooterProps {
   currentStepIndex: number;
@@ -19,17 +19,19 @@ export default function CharacterFooter({ currentStepIndex, onStepChange, totalS
         }
     };
   return (
-    <ButtonsContainer index={currentStepIndex}>
-        {currentStepIndex > 0 && (
-          <PrevButton onClick={handlePrev}>
-              ← 이전
-          </PrevButton>
-        )}
-        {currentStepIndex < totalSteps - 1 && (
-          <NextButton onClick={handleNext}>
-              다음 →
-          </NextButton>
-        )}
-    </ButtonsContainer>
+    <FooterContainer>
+      <ButtonsContainer index={currentStepIndex}>
+          {currentStepIndex > 0 && (
+            <PrevButton onClick={handlePrev}>
+                ← 이전
+            </PrevButton>
+          )}
+          {currentStepIndex < totalSteps - 1 && (
+            <NextButton onClick={handleNext}>
+                다음 →
+            </NextButton>
+          )}
+      </ButtonsContainer>
+    </FooterContainer>
   );
 }

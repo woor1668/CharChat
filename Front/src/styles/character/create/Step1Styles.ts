@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 
 export const FormContainer = styled.div`
   width: 100%;
+  height: 70vh;
 `;
 
 export const InfoText = styled.p`

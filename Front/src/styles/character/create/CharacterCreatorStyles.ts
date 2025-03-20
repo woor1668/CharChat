@@ -60,7 +60,7 @@ export const SaveButton = styled.button`
 
 export const ContentArea = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: 'column';
   min-height: calc(100vh - 60px);
   background-color: #fff;
 `;

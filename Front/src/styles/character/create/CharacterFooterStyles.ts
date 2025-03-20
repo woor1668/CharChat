@@ -1,5 +1,10 @@
 import styled, { css } from "styled-components";
 
+export const FooterContainer = styled.div`
+    position: 'fixed';
+    bottom: 0;
+    left: 0;
+`;
 export const ButtonsContainer = styled.div<{ index: number }>`
     display: flex;
     justify-content: ${(props) => (props.index === 0 ? 'flex-end' : 'space-between')};
