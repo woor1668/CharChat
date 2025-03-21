@@ -3,7 +3,7 @@ import { RequiredMark, StepIcon, StepItem as StepItemStyled, StepLabel, StepNavC
 interface StepItem {
   label: string;
   path: string;
-  isRequired: boolean;
+  isRequired?: boolean;
 }
 
 interface CharacterNaviProps {

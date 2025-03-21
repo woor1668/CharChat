@@ -15,12 +15,12 @@ import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import CharacterNavi from '@create/CharacterNavi';
 import CharacterFooter from '@create/CharacterFooter';
 import CharacterPreview from '@create/CharacterPreview';
-import { getStep } from '@services/character/create/CharacterCreateService';
+import { getLst } from '@services/character/create/CharacterCreateService';
 
 interface StepData {
   label: string;
   path: string;
-  isRequired: boolean;
+  isRequired?: boolean;
 }
 
 export default function CharacterCreator() {
@@ -31,8 +31,8 @@ export default function CharacterCreator() {
   useEffect(() => {
     async function fetchSteps() {
       try {
-        const data = await getStep();
-        const stepsData = Array.isArray(data.steps) ? data.steps : [data.steps];
+        const data = await getLst('sort');
+        const stepsData = Array.isArray(data.lst) ? data.lst : [data.lst];
         const fetchedSteps = stepsData.map((item: StepData) => ({
           label: item.label,
           path: item.path,

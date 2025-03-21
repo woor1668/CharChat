@@ -1,17 +1,17 @@
 import { api } from "@services/Api";
 
-interface StepResponse {
-  steps: {
+interface CharResponse {
+  lst: {
     label: string;
     path: string;
-    isRequired: boolean;
+    isRequired?: boolean;
   }
 }
 
-// 회원가입 API
-export const getStep = async () => {
+export const getLst = async (cls:string) => {
   try {
-    const response = await api.post<StepResponse>("/character/create/getStep", {
+    const response = await api.post<CharResponse>("/character/create/getLst", {
+      cls
     });
     return response.data;
   } catch (error) {

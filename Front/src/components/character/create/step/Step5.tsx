@@ -1,8 +1,8 @@
 import { RequiredMark } from "@styles/character/create/CharacterNaviStyles";
 import { FormContainer, FormSection, 
-         InputCount, InputCountWarpper, 
-         NameInput, SectionDescription, SectionLabel, SectionNote, 
-         SummaryInput} from "@styles/character/create/Step1Styles";
+         InputCount, InputCountWrapper, 
+         TextInput, SectionDescription, SectionLabel, SectionNote, 
+         TextArea} from "@styles/character/create/Step1Styles";
 import { useState } from "react";
 
 export default function Step5() {
@@ -34,32 +34,32 @@ export default function Step5() {
       <FormSection>
         <SectionLabel>이름 <RequiredMark>*</RequiredMark></SectionLabel>
         <SectionDescription>2~12자 이내로 입력해 주세요 (특수문자, 이모지 제외)</SectionDescription>
-        <NameInput 
+        <TextInput 
           placeholder="캐릭터의 이름을 입력해 주세요"
           value={name}
           onChange={handleNameChange}
           maxLength={12}
         />
-        <InputCountWarpper>
+        <InputCountWrapper>
           <InputCount>
             {name.length} / 12
           </InputCount>
-        </InputCountWarpper>
+        </InputCountWrapper>
       </FormSection>
       
       <FormSection>
         <SectionLabel>한 줄 소개 <RequiredMark>*</RequiredMark></SectionLabel>
-          <SummaryInput 
+          <TextArea 
             placeholder="어떤 캐릭터인지 간단한 소개를 입력해 주세요" 
             value={summary}
             onChange={handleSummaryChange}
             maxLength={250}
           />
-          <InputCountWarpper>
+          <InputCountWrapper>
           <InputCount>
             {summary.length} / 250
           </InputCount>
-        </InputCountWarpper>
+        </InputCountWrapper>
       </FormSection>
     </FormContainer>
   );
