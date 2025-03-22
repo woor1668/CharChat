@@ -20,6 +20,13 @@ export const FormSection = styled.div`
   margin-bottom: 24px;
 `;
 
+export const FormAdvance = styled.div<{ maxHeight: string }>`
+    max-height: ${({ maxHeight }) => maxHeight};
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+    opacity: ${({ maxHeight }) => (maxHeight === "0px" ? 0 : 1)};
+`;
+
 export const SectionLabel = styled.label`
   font-size: 14px;
   font-weight: 500;
