@@ -1,6 +1,11 @@
 import { getLst } from "@services/character/create/CharacterCreateService";
 import { RequiredMark } from "@styles/character/create/CharacterNaviStyles";
 import { 
+  AddButton,
+  DeleteButton,
+  DetailSection,
+  ExampleContainer,
+  ExmpleHeader,
   FormAdvance,
   FormContainer, FormSection, InputCount, InputCountWrapper, 
   SectionDescription, SectionLabel, StyledSelect, TextArea, 
@@ -37,7 +42,7 @@ export default function Step2() {
   const [advanceMaxHeight, setAdvanceMaxHeight] = useState("0px");
 
   useEffect(() => {
-    setAdvanceMaxHeight(showAdvance ? "650px" : "0px");
+    setAdvanceMaxHeight(showAdvance ? "1500px" : "0px");
   }, [showAdvance]);
   
   useEffect(() => {
@@ -194,7 +199,7 @@ export default function Step2() {
       </FormSection>
 
       <FormSection>
-        <SectionLabel onClick={() => setShowAdvance(!showAdvance)} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <SectionLabel onClick={() => setShowAdvance(!showAdvance)}>
           고급 설정
           {showAdvance ? <TbCaretDownFilled/> : <TbCaretUpFilled/>}
         </SectionLabel>
@@ -202,33 +207,35 @@ export default function Step2() {
           <SectionLabel>
             예시대화
           </SectionLabel>
-          <SectionDescription>
-            예시 대화를 입력해서 캐릭터의 완성도를 높여보세요.<br/>
-            예시는 3개까지 등록할 수 있어요.
-          </SectionDescription>
+          <DetailSection>
+            <SectionDescription>
+              예시 대화를 입력해서 캐릭터의 완성도를 높여보세요.<br/>
+              예시는 3개까지 등록할 수 있어요.
+            </SectionDescription>
+
+            {exampleDialogues.length < 3 && (
+              <AddButton onClick={addExampleDialogue}>
+                예시 추가
+              </AddButton>
+            )}
+          </DetailSection>
           
           {exampleDialogues.map((dialogue, index) => (
-            <div key={index} style={{ marginBottom: '20px', position: 'relative', background: '#f9f9f9', padding: '15px', borderRadius: '8px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+            <ExampleContainer key={index}>
+              <ExmpleHeader>
                 <span style={{ fontWeight: '500' }}>예시 {index + 1}</span>
-                <button 
+                <DeleteButton 
                   onClick={() => removeExampleDialogue(index)} 
-                  style={{ 
-                    background: 'none', 
-                    border: 'none', 
-                    cursor: 'pointer',
-                    color: '#666'
-                  }}
                 >
                   <TbTrash />
                   <span>삭제</span>
-                </button>
-              </div>
+                </DeleteButton>
+              </ExmpleHeader>
               
               <div style={{ marginBottom: '10px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-                  <div style={{ width: '30px', height: '30px', borderRadius: '50%', background: '#e0e0e0', display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '10px' }}>
-                    재팍
+                  <div>
+                    재파
                   </div>
                 </div>
                 <TextArea
@@ -255,26 +262,8 @@ export default function Step2() {
                   <InputCount>{dialogue.character.length} / {maxDialogueLen}</InputCount>
                 </InputCountWrapper>
               </div>
-            </div>
+            </ExampleContainer>
           ))}
-          
-          {exampleDialogues.length < 3 && (
-            <button 
-              onClick={addExampleDialogue}
-              style={{
-                background: '#f0f0f0',
-                border: '1px dashed #ccc',
-                padding: '10px 15px',
-                borderRadius: '5px',
-                cursor: 'pointer',
-                width: '100%',
-                textAlign: 'center',
-                marginTop: '10px'
-              }}
-            >
-              예시 추가
-            </button>
-          )}
         </FormAdvance>
       </FormSection>
     </FormContainer>

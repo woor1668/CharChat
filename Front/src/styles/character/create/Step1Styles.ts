@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 export const FormContainer = styled.div`
   width: 100%;
   height: 70vh;
+  overflow-y: auto;
 `;
 
 export const InfoText = styled.p`
@@ -148,19 +149,44 @@ export const StyledSelect = styled.select`
   ${InputStyles}
   font-size: 16px;
   appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23777' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml;charset=UTF-8;%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23777' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 12px center;
   background-size: 16px;
 `;
 
-export const CancelButton = styled.button`
-  background-color: #000;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 16px;
-  cursor: pointer;
-  font-weight: 500;
-  margin-right: 10px;
+export const DetailSection = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 `;
+
+export const AddButton = styled.button`
+  background: #aaa;
+  padding: 10px 15px;
+  border-radius: 5px;
+  `;
+
+export const DeleteButton = styled.button`
+  background: #aaa; 
+  border-radius: 5px;
+  border: none;
+`;
+
+export const ExampleContainer = styled.div`
+  position: relative;
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+`;
+
+export const ExmpleHeader = styled.div`
+  display: flex;
+   justify-content: space-between;
+   align-items: center;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #ddd;
+
+`
