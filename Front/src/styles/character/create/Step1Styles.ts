@@ -188,5 +188,77 @@ export const ExmpleHeader = styled.div`
     padding-bottom: 8px;
     margin-bottom: 8px;
     border-bottom: 1px solid #ddd;
-
 `
+
+
+// Tab styling components
+export const TabContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+`;
+
+export const TabButton = styled.button<{active?: boolean}>`
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  
+  background-color: ${props => props.active ? '#333' : '#f5f5f5'};
+  color: ${props => props.active ? '#fff' : '#333'};
+  border: 1px solid ${props => props.active ? '#333' : '#e0e0e0'};
+  
+  &:hover {
+    background-color: ${props => props.active ? '#444' : '#e9e9e9'};
+  }
+`;
+
+export const AddTabButton = styled.button`
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: transparent;
+  color: #333;
+  border: 1px dashed #ccc;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+
+  span {
+    font-size: 16px;
+  }
+
+  &:hover {
+    background-color: #f5f5f5;
+    border-color: #999;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    &:hover {
+      background-color: transparent;
+      border-color: #ccc;
+    }
+  }
+`;
+
+export const DeleteTabButton = styled.button`
+  background: #fff;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid tomato;
+  color: tomato;
+`;
+
+export const ExampleWarpper = styled.div`
+  display: flex;
+`;
