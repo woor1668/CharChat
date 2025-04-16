@@ -262,3 +262,252 @@ export const DeleteTabButton = styled.button`
 export const ExampleWarpper = styled.div`
   display: flex;
 `;
+
+/////4
+export const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+export const ImageSelectionContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 16px;
+`;
+
+export const ImagePreviewGrid = styled.div`
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+`;
+
+export const ImagePreviewCard = styled.div`
+  position: relative;
+  width: 180px;
+  height: 250px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #f5f5f5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+`;
+
+export const PreviewImage = styled.img`
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+`;
+
+export const PreviewLabel = styled.div`
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 12px 4px 12px;
+`;
+
+export const PreviewSubLabel = styled.div`
+  font-size: 12px;
+  color: #666;
+  padding: 0 12px 12px 12px;
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+`;
+
+export const ImageAddButton = styled.button`
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: #f5f5f5;
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  flex: 1;
+  
+  &:hover {
+    background-color: #e9e9e9;
+  }
+`;
+
+
+// Add these to your Step1Styles.ts file
+
+export const ControlsOverlay = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+`;
+
+export const InfoButton = styled.button`
+  padding: 6px 12px;
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: #333;
+  }
+`;
+
+// Modal Styles
+export const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
+
+export const ModalContent = styled.div`
+  background-color: white;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+`;
+
+export const ModalHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid #eee;
+  
+  h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+  }
+`;
+
+export const CloseButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #888;
+  
+  &:hover {
+    color: #333;
+  }
+`;
+
+export const ModalBody = styled.div`
+  padding: 24px;
+  display: flex;
+  gap: 24px;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
+
+export const ModalImageSection = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+`;
+
+export const ModalImage = styled.img`
+  max-width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: 8px;
+`;
+
+export const ImageChangeButton = styled.button`
+  padding: 8px 16px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: #e9e9e9;
+  }
+`;
+
+export const ModalFormSection = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+`;
+
+export const FormGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+export const FormLabel = styled.div`
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+`;
+
+export const FormDescription = styled.div`
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+`;
+
+export const ModalFooter = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 24px;
+  border-top: 1px solid #eee;
+`;
+
+export const CancelButton = styled.button`
+  padding: 10px 20px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #444;
+  font-size: 14px;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: #e9e9e9;
+  }
+`;
+
+export const SaveButton = styled.button`
+  padding: 10px 20px;
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: #333;
+  }
+`;
