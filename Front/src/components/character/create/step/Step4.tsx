@@ -50,8 +50,8 @@ export default function Step4() {
       return {
         id: `upload-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
         src: imageUrl,
-        label: file.name.split('.')[0], // Use filename as label
-        subLabel: "업로드된 이미지",
+        label: file.name.split('.')[0],
+        subLabel: "",
         isDefault: false,
         file: file,
         hasInfo: false
@@ -145,10 +145,14 @@ export default function Step4() {
             {displayedImages.map((image) => (
               <St.ImagePreviewCard key={image.id} onClick={() => handleImageClick(image)}>
                 <St.PreviewImage src={image.src} alt={image.label} />
-                <St.PreviewLabel>{image.label}</St.PreviewLabel>
-                <St.PreviewSubLabel>{image.subLabel}</St.PreviewSubLabel>
-                
                 <St.ControlsOverlay>
+                  
+                  {image.isDefault && (
+                  <div>
+                    <St.PreviewLabel>{image.label}</St.PreviewLabel>
+                      <St.PreviewSubLabel>{image.subLabel}</St.PreviewSubLabel>
+                  </div>
+                  )}
                   {!image.isDefault && (
                     <St.DeleteButton 
                       onClick={(e) => {

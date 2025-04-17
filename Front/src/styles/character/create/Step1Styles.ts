@@ -296,7 +296,6 @@ export const ImagePreviewCard = styled.div`
 
 export const PreviewImage = styled.img`
   width: 100%;
-  height: 180px;
   object-fit: cover;
 `;
 
