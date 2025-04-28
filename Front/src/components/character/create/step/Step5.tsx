@@ -18,11 +18,6 @@ export default function Step5() {
   return (
     <FormContainer>
       
-      {/* <InfoText>
-        정보보호를 보호하기 위한 세이프티 필터 기능이 추가되었어요.<br />
-        민감한 캐릭터의 경우 제작 시 설인인증이 필요해요.
-        <CancelButton>설정 변경</CancelButton>
-      </InfoText> */}
       
       <FormSection>
         <SectionLabel>이미지 <RequiredMark>*</RequiredMark></SectionLabel>
